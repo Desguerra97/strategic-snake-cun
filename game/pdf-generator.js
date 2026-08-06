@@ -1,6 +1,7 @@
 /* ============================================================
-   PDF Generator — Genera el reporte final del estudiante
+   PDF Generator — Reporte final del estudiante
    Usa jsPDF (cargado desde CDN en index.html)
+   Fix: sin emojis (jsPDF con Helvetica no los soporta bien)
    ============================================================ */
 (function () {
   'use strict';
@@ -12,7 +13,6 @@
         return;
       }
 
-      // Pedir el reporte completo al backend
       const url = endpoint + (endpoint.includes('?') ? '&' : '?') + 'action=myAnswers&email=' + encodeURIComponent(student.email);
       const feedbackUrl = endpoint + (endpoint.includes('?') ? '&' : '?') + 'action=myFeedback&email=' + encodeURIComponent(student.email);
 
@@ -32,28 +32,20 @@
       const { jsPDF } = jspdf;
       const doc = new jsPDF({ unit: 'mm', format: 'a4' });
 
-      // ============ PORTADA ============
       renderCover(doc, student, answersData.answers, feedbackData.feedback);
 
-      // ============ SECCIONES POR NIVEL ============
-      // Agrupar respuestas por nivel (última versión de cada uno)
       const byLevel = groupLatest(answersData.answers, 'nivel');
       const fbByLevel = groupLatest(feedbackData.feedback, 'nivel');
-
       const niveles = Object.keys(byLevel).sort((a, b) => Number(a) - Number(b));
 
       for (const nivel of niveles) {
-        const ans = byLevel[nivel];
-        const fb  = fbByLevel[nivel];
         doc.addPage();
-        renderLevelPage(doc, nivel, ans, fb);
+        renderLevelPage(doc, nivel, byLevel[nivel], fbByLevel[nivel]);
       }
 
-      // ============ RESUMEN FINAL ============
       doc.addPage();
       renderSummaryPage(doc, student, answersData.answers, feedbackData.feedback);
 
-      // Guardar
       const filename = 'Laboratorio-Ideas-' + safeName(student.name) + '.pdf';
       doc.save(filename);
       return filename;
@@ -65,97 +57,85 @@
   // ============================================================
   function renderCover(doc, student, answers, feedback) {
     const w = 210, h = 297;
-    // Fondo azul
     doc.setFillColor(15, 45, 90);
     doc.rect(0, 0, w, h, 'F');
-    // Franja dorada superior
     doc.setFillColor(200, 155, 50);
     doc.rect(0, 0, w, 8, 'F');
-    // Franja dorada inferior
     doc.setFillColor(200, 155, 50);
     doc.rect(0, h - 8, w, 8, 'F');
 
-    // Título
     doc.setTextColor(255, 255, 255);
-    doc.setFontSize(32);
+    doc.setFontSize(30);
     doc.setFont('helvetica', 'bold');
     doc.text('LABORATORIO DE', w / 2, 60, { align: 'center' });
     doc.text('IDEAS DE NEGOCIO', w / 2, 74, { align: 'center' });
 
-    doc.setFontSize(14);
+    doc.setFontSize(13);
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(200, 220, 240);
-    doc.text('Plan de negocio inicial + Evaluación IA', w / 2, 86, { align: 'center' });
+    doc.text('Plan de negocio inicial + Evaluacion IA', w / 2, 88, { align: 'center' });
 
-    // Datos del estudiante
     doc.setFillColor(255, 255, 255);
-    doc.roundedRect(30, 110, w - 60, 60, 3, 3, 'F');
+    doc.roundedRect(30, 115, w - 60, 65, 3, 3, 'F');
 
     doc.setTextColor(15, 45, 90);
-    doc.setFontSize(11);
+    doc.setFontSize(10);
     doc.setFont('helvetica', 'bold');
-    doc.text('ESTUDIANTE', 40, 122);
+    doc.text('ESTUDIANTE', 40, 127);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(14);
-    doc.text(student.name || 'Sin nombre', 40, 130);
+    doc.text(String(student.name || 'Sin nombre'), 40, 135);
 
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(11);
-    doc.text('EMAIL', 40, 143);
+    doc.setFontSize(10);
+    doc.text('EMAIL', 40, 145);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(11);
-    doc.text(student.email || 'sin_email', 40, 150);
+    doc.text(String(student.email || 'sin_email'), 40, 152);
 
-    // Estadísticas
     const niveles = new Set(answers.map(a => a.nivel)).size;
-    const totalPalabras = answers.reduce((s, a) => s + (Number(a.palabras) || 0), 0);
     const scoreIA = feedback.length
       ? (feedback.reduce((s, f) => s + (Number(f.score) || 0), 0) / feedback.length).toFixed(1)
-      : '—';
+      : '--';
 
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(11);
+    doc.setFontSize(10);
     doc.text('NIVELES COMPLETADOS', 40, 163);
     doc.setFont('helvetica', 'normal');
-    doc.text(niveles + ' de 9', 100, 163);
+    doc.text(niveles + ' de 9', 110, 163);
 
     doc.setFont('helvetica', 'bold');
-    doc.text('PROMEDIO EVALUACIÓN IA', 40, 170);
+    doc.text('PROMEDIO IA', 40, 172);
     doc.setFont('helvetica', 'normal');
-    doc.text(scoreIA + ' / 10', 100, 170);
+    doc.text(scoreIA + ' / 10', 110, 172);
 
-    // Fecha
     doc.setTextColor(200, 220, 240);
     doc.setFontSize(10);
     const fecha = new Date().toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' });
-    doc.text('Generado el ' + fecha, w / 2, h - 30, { align: 'center' });
+    doc.text('Generado el ' + fecha, w / 2, h - 32, { align: 'center' });
 
-    // Institución
     doc.setFontSize(9);
     doc.setFont('helvetica', 'italic');
-    doc.text('Corporación Unificada Nacional (CUN)', w / 2, h - 22, { align: 'center' });
-    doc.text('Administración Estratégica · Creación de Empresas III', w / 2, h - 16, { align: 'center' });
+    doc.text('Corporacion Unificada Nacional (CUN)', w / 2, h - 22, { align: 'center' });
+    doc.text('Administracion Estrategica - Creacion de Empresas III', w / 2, h - 16, { align: 'center' });
   }
 
   // ============================================================
-  // PÁGINA POR NIVEL
+  // PAGINA POR NIVEL
   // ============================================================
   function renderLevelPage(doc, nivel, answer, feedback) {
     const w = 210;
     let y = 20;
 
-    // Header con franja
     doc.setFillColor(15, 45, 90);
     doc.rect(0, 0, w, 12, 'F');
     doc.setFillColor(200, 155, 50);
     doc.rect(0, 12, w, 2, 'F');
-
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(10);
     doc.setFont('helvetica', 'bold');
-    doc.text('NIVEL ' + nivel + ' · ' + (answer ? answer.seccion : ''), 15, 8);
+    doc.text('NIVEL ' + nivel + '  -  ' + (answer ? String(answer.seccion) : ''), 15, 8);
 
-    // Título del nivel
     y = 25;
     doc.setTextColor(15, 45, 90);
     doc.setFontSize(16);
@@ -166,58 +146,60 @@
     doc.setFont('helvetica', 'italic');
     doc.setTextColor(70, 70, 75);
     if (answer) {
-      const seccionText = doc.splitTextToSize(answer.seccion || '', w - 30);
+      const seccionText = doc.splitTextToSize(String(answer.seccion || ''), w - 30);
       doc.text(seccionText, 15, y);
       y += seccionText.length * 5 + 4;
     }
 
-    // Puntaje del juego
     doc.setFillColor(240, 240, 245);
-    doc.roundedRect(15, y, w - 30, 12, 2, 2, 'F');
+    doc.roundedRect(15, y, w - 30, 14, 2, 2, 'F');
     doc.setTextColor(15, 45, 90);
     doc.setFontSize(10);
     doc.setFont('helvetica', 'bold');
-    doc.text('🎮 Puntaje del mini-juego: ' + (answer ? answer.puntaje_juego : 0) +
-             '   |   ⏱ Duración: ' + (answer ? answer.duracion : 0) + 's' +
-             '   |   ✍ Palabras: ' + (answer ? answer.palabras : 0), 20, y + 8);
-    y += 18;
+    const linea1 = 'Puntaje del juego: ' + (answer ? answer.puntaje_juego : 0) +
+                   '     Duracion: ' + (answer ? answer.duracion : 0) + 's' +
+                   '     Palabras: ' + (answer ? answer.palabras : 0);
+    doc.text(linea1, 20, y + 9);
+    y += 20;
 
-    // Respuesta del estudiante
+    // RESPUESTA DEL ESTUDIANTE
     doc.setFillColor(200, 155, 50);
-    doc.rect(15, y, 2, 5, 'F');
+    doc.rect(15, y - 2, 3, 6, 'F');
     doc.setTextColor(15, 45, 90);
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
-    doc.text('Tu respuesta', 20, y + 4);
+    doc.text('Tu respuesta', 22, y + 2);
     y += 8;
 
     doc.setTextColor(50, 50, 55);
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
-    const respuestaText = doc.splitTextToSize(answer && answer.respuesta ? answer.respuesta : '(sin respuesta)', w - 30);
+    const respuestaText = doc.splitTextToSize(
+      answer && answer.respuesta ? String(answer.respuesta) : '(sin respuesta)',
+      w - 30
+    );
     doc.text(respuestaText, 15, y);
     y += respuestaText.length * 4.5 + 8;
 
-    // Feedback IA
+    // FEEDBACK IA
     if (y > 220) { doc.addPage(); y = 20; }
 
     doc.setFillColor(110, 60, 140);
-    doc.rect(15, y, 2, 5, 'F');
+    doc.rect(15, y - 2, 3, 6, 'F');
     doc.setTextColor(110, 60, 140);
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
-    doc.text('🤖 Evaluación de la IA', 20, y + 4);
+    doc.text('Evaluacion de la IA', 22, y + 2);
     y += 10;
 
     if (!feedback) {
       doc.setTextColor(150, 100, 100);
       doc.setFontSize(10);
       doc.setFont('helvetica', 'italic');
-      doc.text('(No se registró feedback IA para este nivel)', 15, y);
+      doc.text('(No se registro feedback IA para este nivel)', 15, y);
       return;
     }
 
-    // Score IA
     doc.setFillColor(240, 235, 245);
     doc.roundedRect(15, y, w - 30, 10, 2, 2, 'F');
     doc.setTextColor(110, 60, 140);
@@ -226,22 +208,21 @@
     doc.text('Score IA: ' + feedback.score + ' / 10', 20, y + 7);
     y += 14;
 
-    // Fortalezas
     y = renderList(doc, y, 'Fortalezas detectadas', feedback.fortalezas, [46, 139, 87]);
-    y = renderList(doc, y, 'Sugerencias específicas', feedback.sugerencias, [200, 155, 50]);
+    y = renderList(doc, y, 'Sugerencias especificas', feedback.sugerencias, [200, 155, 50]);
     y = renderList(doc, y, 'Elementos faltantes o a mejorar', feedback.elementosFaltantes, [192, 57, 43]);
 
     if (feedback.comentarioGeneral) {
       if (y > 250) { doc.addPage(); y = 20; }
       doc.setFillColor(240, 235, 245);
-      doc.roundedRect(15, y, w - 30, 20, 2, 2, 'F');
+      doc.roundedRect(15, y, w - 30, 24, 2, 2, 'F');
       doc.setTextColor(110, 60, 140);
       doc.setFontSize(10);
       doc.setFont('helvetica', 'bold');
       doc.text('Comentario general', 20, y + 6);
       doc.setFont('helvetica', 'italic');
       doc.setTextColor(70, 70, 75);
-      const comm = doc.splitTextToSize(feedback.comentarioGeneral, w - 40);
+      const comm = doc.splitTextToSize(String(feedback.comentarioGeneral), w - 40);
       doc.text(comm, 20, y + 12);
     }
   }
@@ -260,7 +241,7 @@
     doc.setFontSize(9);
     items.forEach(it => {
       if (y > 275) { doc.addPage(); y = 20; }
-      const wrapped = doc.splitTextToSize('• ' + it, w - 25);
+      const wrapped = doc.splitTextToSize('- ' + String(it), w - 25);
       doc.text(wrapped, 20, y);
       y += wrapped.length * 4 + 1;
     });
@@ -285,9 +266,8 @@
     doc.setTextColor(15, 45, 90);
     doc.setFontSize(22);
     doc.setFont('helvetica', 'bold');
-    doc.text('🎯 Resumen de tu Laboratorio', 15, 30);
+    doc.text('Resumen de tu Laboratorio', 15, 30);
 
-    // Métricas
     const niveles = new Set(answers.map(a => a.nivel)).size;
     const totalGame = answers.reduce((s, a) => s + (Number(a.puntaje_juego) || 0), 0);
     const avgIA = feedback.length ? (feedback.reduce((s, f) => s + (Number(f.score) || 0), 0) / feedback.length) : 0;
@@ -299,10 +279,10 @@
     doc.setTextColor(15, 45, 90);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(11);
-    doc.text('Niveles completados:',   25, y + 12);
-    doc.text('Puntaje total juegos:',  25, y + 22);
-    doc.text('Promedio evaluación IA:',25, y + 32);
-    doc.text('Palabras escritas:',     25, y + 42);
+    doc.text('Niveles completados:',    25, y + 12);
+    doc.text('Puntaje total juegos:',   25, y + 22);
+    doc.text('Promedio evaluacion IA:', 25, y + 32);
+    doc.text('Palabras escritas:',      25, y + 42);
     doc.setFont('helvetica', 'normal');
     doc.text(niveles + ' de 9',                    120, y + 12);
     doc.text(String(totalGame) + ' pts',           120, y + 22);
@@ -310,35 +290,33 @@
     doc.text(String(totalPalabras) + ' palabras',  120, y + 42);
     y += 60;
 
-    // Nota final estimada
     doc.setFillColor(46, 139, 87);
-    doc.roundedRect(15, y, w - 30, 30, 3, 3, 'F');
+    doc.roundedRect(15, y, w - 30, 32, 3, 3, 'F');
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
-    doc.text('BONIFICACIÓN ACA ESTIMADA', 25, y + 10);
+    doc.text('BONIFICACION ACA ESTIMADA', 25, y + 10);
     const bonus = Math.min(2.0, ((niveles / 9) * 1.0) + ((avgIA / 10) * 1.0));
     doc.setFontSize(22);
     doc.text('+' + bonus.toFixed(2) + ' puntos', 25, y + 22);
     doc.setFontSize(9);
     doc.setFont('helvetica', 'italic');
-    doc.text('(basado en niveles completados y calidad promedio de tus respuestas)', 25, y + 27);
-    y += 40;
+    doc.text('(basado en niveles completados y calidad promedio de tus respuestas)', 25, y + 28);
+    y += 42;
 
-    // Recomendación final
     doc.setTextColor(15, 45, 90);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(12);
-    doc.text('📝 Próximos pasos', 15, y);
+    doc.text('Proximos pasos', 15, y);
     y += 7;
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
     doc.setTextColor(50, 50, 55);
     const consejo = [
       '1. Toma este documento como el borrador oficial de tu plan de negocio.',
-      '2. Revisa las sugerencias de la IA de cada nivel y mejora tu redacción.',
-      '3. Entrega el documento oficial en Moodle antes de la fecha límite del ACA.',
-      '4. Si algún nivel quedó bajo (<7/10), vuelve a jugarlo — sube tu bono.'
+      '2. Revisa las sugerencias de la IA de cada nivel y mejora tu redaccion.',
+      '3. Entrega el documento oficial en Moodle antes de la fecha limite del ACA.',
+      '4. Si algun nivel quedo bajo (menor a 7/10), vuelve a jugarlo para subir tu bono.'
     ];
     consejo.forEach(l => {
       const wrapped = doc.splitTextToSize(l, w - 30);
@@ -346,10 +324,9 @@
       y += wrapped.length * 5 + 2;
     });
 
-    // Footer
     doc.setTextColor(150, 150, 150);
     doc.setFontSize(8);
-    doc.text('Laboratorio de Ideas de Negocio · CUN · Administración Estratégica', w / 2, h - 8, { align: 'center' });
+    doc.text('Laboratorio de Ideas de Negocio - CUN - Administracion Estrategica', w / 2, h - 8, { align: 'center' });
   }
 
   // ============================================================

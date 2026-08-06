@@ -98,7 +98,32 @@
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     $('#screen-lab-game').classList.add('active');
     gameStartTime = Date.now();
+    populateLevelJumpSelector();
     window.LabEngines.start(currentLevel, cfg, onGameEnd);
+  }
+
+  function populateLevelJumpSelector() {
+    const sel = $('#lab-level-jump');
+    if (!sel) return;
+    sel.innerHTML = '';
+    levelsData.niveles.forEach(n => {
+      const opt = document.createElement('option');
+      opt.value = n.num;
+      opt.textContent = 'Nivel ' + n.num + ' — ' + n.titulo.substring(0, 30) + (n.titulo.length > 30 ? '...' : '');
+      if (n.num === currentLevel.num) opt.selected = true;
+      sel.appendChild(opt);
+    });
+    sel.onchange = () => {
+      const target = parseInt(sel.value, 10);
+      if (!target || target === currentLevel.num) return;
+      if (confirm('¿Cambiar al Nivel ' + target + '? Se pierde el puntaje del nivel actual.')) {
+        window.LabEngines.stop();
+        currentLevel = levelsData.niveles.find(n => n.num === target);
+        launchGame();
+      } else {
+        sel.value = currentLevel.num;
+      }
+    };
   }
 
   function onGameEnd(score, duration) {
