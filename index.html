@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strategic Snake CUN — Laboratorio de Ideas</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- ============ PANTALLA 1: Bienvenida / Registro ============ -->
+    <section id="screen-welcome" class="screen active">
+      <div class="hero">
+        <h1>🧪 Laboratorio de Ideas CUN</h1>
+        <p class="tagline">Construye tu plan de negocio jugando</p>
+        <p class="course-info">Curso: Administración Estratégica / Creación de Empresas III</p>
+      </div>
+      <div class="card">
+        <h2>Regístrate para empezar</h2>
+        <p class="hint">Se guarda una sola vez en este navegador. Tu email es la llave para acumular puntaje y recuperar tu progreso.</p>
+        <form id="form-register" autocomplete="off">
+          <label>
+            <span>Nombre completo</span>
+            <input type="text" id="input-name" required minlength="3" placeholder="Ej: María Fernanda Pérez">
+          </label>
+          <label>
+            <span>Correo institucional CUN</span>
+            <input type="email" id="input-email" required placeholder="tunombre@cun.edu.co" pattern=".+@cun\.edu\.co">
+            <small>Debe ser @cun.edu.co</small>
+          </label>
+          <button type="submit" class="btn-primary">Entrar</button>
+        </form>
+      </div>
+      <div class="footer-mini">
+        <a href="docs/COMO_JUGAR.md" target="_blank">¿Cómo funciona?</a> ·
+        <a href="#" id="link-reset">Cambiar de estudiante</a>
+      </div>
+    </section>
+
+    <!-- ============ PANTALLA 2: Menú Principal ============ -->
+    <section id="screen-menu" class="screen">
+      <header class="topbar">
+        <div>
+          <h2>Hola, <span id="lbl-name">estudiante</span> 👋</h2>
+          <p><small><span id="lbl-email"></span></small></p>
+        </div>
+        <div class="stats">
+          <div class="stat"><span class="stat-label">Tu mejor puntaje</span><span class="stat-value" id="lbl-best">0</span></div>
+          <div class="stat"><span class="stat-label">Bonus ACA</span><span class="stat-value" id="lbl-bonus">+0.0</span></div>
+        </div>
+        <button id="btn-logout" class="btn-logout" title="Cerrar sesión y volver al registro">🚪 Cerrar sesión</button>
+      </header>
+
+      <!-- Modo LABORATORIO (nuevo) -->
+      <div class="card lab-card">
+        <div class="lab-card-head">
+          <h3>🧪 Laboratorio de Ideas</h3>
+          <span class="badge-new">9 NIVELES</span>
+        </div>
+        <p class="hint">
+          9 niveles que te guían a construir tu plan de negocio.
+          Cada nivel: juego temático + pregunta abierta + feedback con IA.
+          Al terminar, descarga tu plan en PDF con las sugerencias del profesor virtual.
+        </p>
+        <div id="lab-level-grid" class="lab-level-grid"></div>
+        <div class="pdf-download-zone">
+          <button id="btn-generate-pdf" class="btn-primary btn-large">📄 Generar mi PDF del Laboratorio</button>
+          <p class="hint">Cuando hayas jugado todos los niveles (o los que puedas), descarga tu documento completo con tus respuestas + feedback de la IA. Se genera al instante.</p>
+        </div>
+      </div>
+
+      <div class="two-cols">
+        <div class="card">
+          <h3>🎮 Modo clásico (culebrita por capítulos)</h3>
+          <p class="hint">Preguntas rápidas por capítulo del libro Fred David. Ideal para repasar teoría.</p>
+          <div class="chapter-grid" id="chapter-grid"></div>
+        </div>
+        <div class="card ranking-card">
+          <h3>🏆 Ranking Top 10</h3>
+          <p class="hint">Mejores estrategas de la semana</p>
+          <ol id="ranking-list"><li class="ranking-empty">Cargando...</li></ol>
+          <button id="btn-refresh-ranking" class="btn-secondary">↻ Actualizar</button>
+        </div>
+      </div>
+
+      <div class="card bonus-info">
+        <h3>💰 Escala de bonificación ACA</h3>
+        <table id="table-bonus">
+          <thead><tr><th>Puntaje acumulado</th><th>Bonus en tu nota ACA</th></tr></thead>
+          <tbody id="tbody-bonus"></tbody>
+        </table>
+        <p class="hint">Puedes jugar todas las veces que quieras durante las 3 semanas. Solo cuenta tu mejor puntaje por capítulo.</p>
+      </div>
+    </section>
+
+    <!-- ============ PANTALLA 3: Juego clásico (chapters) ============ -->
+    <section id="screen-game" class="screen">
+      <div class="game-header">
+        <button id="btn-back-menu" class="btn-ghost">← Menú</button>
+        <div class="game-hud">
+          <span>Capítulo <b id="hud-chapter">1</b></span>
+          <span>Nivel <b id="hud-level">1</b> / <b id="hud-total-levels">10</b></span>
+          <span>Vidas <b id="hud-lives">❤❤❤</b></span>
+          <span>Puntaje <b id="hud-score">0</b></span>
+          <span>Tiempo <b id="hud-time">60</b>s</span>
+        </div>
+        <button id="btn-fullscreen-classic" class="btn-ghost" title="Pantalla completa (Esc para salir)">⛶ Pantalla completa</button>
+      </div>
+      <div class="question-bar">
+        <p id="question-text">Cargando pregunta...</p>
+        <button id="btn-hint" class="btn-ghost">💡 Pista</button>
+      </div>
+      <canvas id="game-canvas" width="800" height="500"></canvas>
+      <div class="controls-hint">
+        <p>Usa <kbd>←</kbd> <kbd>↑</kbd> <kbd>↓</kbd> <kbd>→</kbd> o <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd>. <kbd>Espacio</kbd> pausa.</p>
+      </div>
+    </section>
+
+    <!-- ============ PANTALLA 4: Fin de partida clásica ============ -->
+    <section id="screen-end" class="screen">
+      <div class="card end-card">
+        <h2 id="end-title">🎯 ¡Partida terminada!</h2>
+        <div class="end-stats">
+          <div class="end-stat big"><span class="stat-label">Puntaje final</span><span class="stat-value" id="end-score">0</span></div>
+          <div class="end-stat"><span class="stat-label">Aciertos</span><span class="stat-value" id="end-hits">0</span></div>
+          <div class="end-stat"><span class="stat-label">Errores</span><span class="stat-value" id="end-misses">0</span></div>
+          <div class="end-stat"><span class="stat-label">Duración</span><span class="stat-value" id="end-duration">0s</span></div>
+        </div>
+        <div id="bonus-alert" class="bonus-alert">
+          <p>Con este puntaje ya alcanzas: <b id="end-bonus">+0.0 puntos ACA</b></p>
+        </div>
+        <div id="send-status" class="send-status">Enviando resultado...</div>
+        <div class="end-actions">
+          <button id="btn-play-again" class="btn-primary">Jugar de nuevo</button>
+          <button id="btn-back-menu2" class="btn-secondary">Volver al menú</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ NUEVAS PANTALLAS DEL LABORATORIO ============ -->
+
+    <!-- Intro del nivel -->
+    <section id="screen-lab-intro" class="screen">
+      <div class="lab-intro-container">
+        <button class="btn-ghost btn-menu-return">🏠 Menú principal</button>
+        <div class="card lab-intro-card">
+          <div class="lab-intro-badge">📄 Sección: <span id="lab-intro-section"></span></div>
+          <h2 id="lab-intro-title">Título del nivel</h2>
+          <div class="lab-intro-concept">
+            <h3>🎯 El concepto</h3>
+            <p id="lab-intro-concept">...</p>
+          </div>
+          <div class="lab-intro-question">
+            <h3>✍️ Al final vas a responder</h3>
+            <p id="lab-intro-consigna">...</p>
+          </div>
+          <div class="lab-intro-actions">
+            <button id="btn-lab-start-game" class="btn-primary btn-large">▶ Empezar el nivel</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Juego del laboratorio -->
+    <section id="screen-lab-game" class="screen">
+      <div class="game-header">
+        <button id="btn-lab-exit-game" class="btn-ghost">← Salir</button>
+        <div class="game-hud">
+          <span>Puntaje <b id="lab-hud-score">0</b></span>
+          <span>Progreso <b id="lab-hud-lives">❤❤❤</b></span>
+          <span>Tiempo <b id="lab-hud-time">90s</b></span>
+        </div>
+        <button id="btn-fullscreen-lab" class="btn-ghost" title="Pantalla completa (Esc para salir)">⛶ Pantalla completa</button>
+      </div>
+      <div class="question-bar">
+        <p id="lab-game-instr">...</p>
+      </div>
+      <canvas id="lab-canvas" width="800" height="440"></canvas>
+      <div id="lab-game-container" class="lab-game-container" style="display:none"></div>
+      <div class="controls-hint">
+        <p>Snake: <kbd>←</kbd> <kbd>↑</kbd> <kbd>↓</kbd> <kbd>→</kbd> o <kbd>WASD</kbd> · <kbd>Espacio</kbd> pausa · En sorting arrastra con el ratón.</p>
+      </div>
+    </section>
+
+    <!-- Pregunta abierta -->
+    <section id="screen-lab-question" class="screen">
+      <div style="margin-bottom:10px">
+        <button class="btn-ghost btn-menu-return">🏠 Menú principal</button>
+      </div>
+      <div class="card lab-q-card">
+        <div class="lab-q-header">
+          <h2 id="lab-q-title">Pregunta</h2>
+          <div class="lab-q-game-score">Puntaje del juego: <b id="lab-q-game-score">0</b></div>
+        </div>
+        <p class="lab-q-instruction" id="lab-q-instruction"></p>
+        <div class="lab-q-editor">
+          <textarea id="lab-q-textarea" rows="12" placeholder="Escribe tu respuesta aquí..."></textarea>
+          <div class="lab-q-footer">
+            <span id="lab-q-counter">0 palabras</span>
+            <span class="lab-q-min">Mínimo <b id="lab-q-min">200</b> palabras</span>
+          </div>
+        </div>
+        <div class="end-actions">
+          <button id="btn-lab-submit-answer" class="btn-primary btn-large" disabled>Enviar respuesta y recibir feedback IA</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feedback IA -->
+    <section id="screen-lab-feedback" class="screen">
+      <div style="margin-bottom:10px">
+        <button class="btn-ghost btn-menu-return">🏠 Menú principal</button>
+      </div>
+      <div class="card lab-fb-card">
+        <div id="lab-feedback-status" class="lab-fb-status">Cargando...</div>
+        <div id="lab-feedback-content" style="display:none">
+          <div class="lab-fb-header">
+            <h2>🤖 Evaluación de tu respuesta</h2>
+            <div id="fb-score" class="fb-score">— / 10</div>
+          </div>
+          <div class="lab-fb-block">
+            <h3>✅ Fortalezas detectadas</h3>
+            <ul id="fb-fortalezas"></ul>
+          </div>
+          <div class="lab-fb-block">
+            <h3>💡 Sugerencias específicas</h3>
+            <ul id="fb-sugerencias"></ul>
+          </div>
+          <div class="lab-fb-block">
+            <h3>⚠️ Elementos que faltan (o mejorar)</h3>
+            <ul id="fb-faltantes"></ul>
+          </div>
+          <div class="lab-fb-comment">
+            <h3>📝 Comentario general</h3>
+            <p id="fb-comentario"></p>
+          </div>
+          <div class="lab-fb-nivel-score">
+            <span>Puntaje total de este nivel:</span>
+            <b id="lab-nivel-score">— / 10</b>
+          </div>
+          <div class="end-actions">
+            <button id="btn-lab-continue" class="btn-primary btn-large">Volver al menú y continuar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Librería jsPDF para generar el PDF final -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Scripts del juego -->
+  <script src="game/content-loader.js"></script>
+  <script src="game/sheets-sender.js"></script>
+  <script src="game/snake.js"></script>
+  <script src="game/lab-engines.js"></script>
+  <script src="game/pdf-generator.js"></script>
+  <script src="game/lab-mode.js"></script>
+  <script src="game/ui.js"></script>
+</body>
+</html>

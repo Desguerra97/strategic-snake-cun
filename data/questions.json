@@ -1,0 +1,587 @@
+{
+  "capitulo_1": {
+    "titulo": "Naturaleza de la Dirección Estratégica",
+    "preguntas": [
+      {
+        "id": "1.1",
+        "instruccion": "Come solo las 3 ETAPAS de la dirección estratégica",
+        "correctos": ["formulación", "implantación", "evaluación"],
+        "incorrectos": ["auditoría", "presupuesto", "control"]
+      },
+      {
+        "id": "1.2",
+        "instruccion": "Come los TÉRMINOS CLAVE de la dirección estratégica",
+        "correctos": ["visión", "misión", "estrategas", "políticas", "objetivos LP"],
+        "incorrectos": ["ROI", "TIR", "dividendos", "flujo de caja"]
+      },
+      {
+        "id": "1.3",
+        "instruccion": "Come los PROPÓSITOS principales del proceso estratégico",
+        "correctos": ["crear ventaja competitiva", "adaptarse al cambio", "aprender continuamente", "explotar oportunidades"],
+        "incorrectos": ["reducir empleados", "evitar innovación", "centralizar poder"]
+      },
+      {
+        "id": "1.4",
+        "instruccion": "Come solo los ERRORES en la planeación estratégica",
+        "correctos": ["no comunicar el plan", "delegar a un solo planificador", "ignorar la ejecución", "excesiva formalidad"],
+        "incorrectos": ["involucrar al equipo", "medir resultados", "aprender del error"]
+      },
+      {
+        "id": "1.5",
+        "instruccion": "Come los ROLES de un ESTRATEGA",
+        "correctos": ["director general", "presidente", "gerente", "propietario", "empresario"],
+        "incorrectos": ["practicante", "auxiliar contable", "mensajero"]
+      },
+      {
+        "id": "1.6",
+        "instruccion": "Come los BENEFICIOS FINANCIEROS de la dirección estratégica",
+        "correctos": ["mayor rentabilidad", "más ventas", "mayor productividad"],
+        "incorrectos": ["evasión de impuestos", "reducir personal", "quiebra evitada por suerte"]
+      },
+      {
+        "id": "1.7",
+        "instruccion": "Come los BENEFICIOS NO FINANCIEROS",
+        "correctos": ["empoderamiento", "mejor comunicación", "comprensión de amenazas", "menor resistencia al cambio"],
+        "incorrectos": ["aumento salarial", "vacaciones extras"]
+      },
+      {
+        "id": "1.8",
+        "instruccion": "Come las características de una BUENA ESTRATEGIA",
+        "correctos": ["logra objetivos LP", "compromete recursos", "orientada al futuro"],
+        "incorrectos": ["tarea diaria", "control mensual", "reporte operativo"]
+      },
+      {
+        "id": "1.9",
+        "instruccion": "Come los tipos de OBJETIVOS válidos",
+        "correctos": ["desafiantes", "medibles", "realistas", "claros", "consistentes"],
+        "incorrectos": ["borrosos", "contradictorios", "imposibles"]
+      },
+      {
+        "id": "1.10",
+        "instruccion": "Come solo las AFIRMACIONES CORRECTAS sobre la dirección estratégica",
+        "correctos": ["integra intuición y análisis", "es proactiva", "es un proceso continuo"],
+        "incorrectos": ["es solo un documento", "solo la usa el CEO", "se hace una vez al año"]
+      }
+    ]
+  },
+  "capitulo_2": {
+    "titulo": "La Misión de la Empresa",
+    "preguntas": [
+      {
+        "id": "2.1",
+        "instruccion": "Come los 9 COMPONENTES de una MISIÓN",
+        "correctos": ["clientes", "productos", "mercados", "tecnología", "filosofía", "concepto de sí misma", "imagen pública"],
+        "incorrectos": ["ROA", "deuda", "sindicato"]
+      },
+      {
+        "id": "2.2",
+        "instruccion": "Come lo que responde una VISIÓN",
+        "correctos": ["qué queremos llegar a ser", "aspiración futura", "meta ambiciosa"],
+        "incorrectos": ["qué hacemos hoy", "cuánto vendimos", "cuál es la utilidad"]
+      },
+      {
+        "id": "2.3",
+        "instruccion": "Come lo que responde una MISIÓN",
+        "correctos": ["cuál es nuestro negocio", "razón de existir", "propósito perdurable"],
+        "incorrectos": ["qué queremos ser", "sueño futuro", "meta a 10 años"]
+      },
+      {
+        "id": "2.4",
+        "instruccion": "Come las características de una BUENA declaración de misión",
+        "correctos": ["amplia sin ser vaga", "orientada al cliente", "inspiradora", "refleja responsabilidad social"],
+        "incorrectos": ["muy específica y técnica", "solo financiera", "secreta interna"]
+      },
+      {
+        "id": "2.5",
+        "instruccion": "Come los BENEFICIOS de una declaración de misión clara",
+        "correctos": ["unifica propósito", "guía asignación de recursos", "base para políticas"],
+        "incorrectos": ["reemplaza al gerente", "sustituye al presupuesto", "evita auditorías"]
+      },
+      {
+        "id": "2.6",
+        "instruccion": "Come los pasos correctos del PROCESO de desarrollar una misión",
+        "correctos": ["seleccionar referencias", "borrador por gerente", "consolidar", "aprobación directiva", "comunicar"],
+        "incorrectos": ["escribir a solas", "publicar sin revisar", "copiar textual de otra empresa"]
+      },
+      {
+        "id": "2.7",
+        "instruccion": "Come afirmaciones correctas sobre VISIÓN vs MISIÓN",
+        "correctos": ["visión es futura", "misión es presente", "visión es breve", "misión es más detallada"],
+        "incorrectos": ["son sinónimos", "la visión es operativa", "la misión es aspiracional"]
+      },
+      {
+        "id": "2.8",
+        "instruccion": "Come solo los ELEMENTOS que NO deben ir en una misión",
+        "correctos": ["metas trimestrales", "salarios exactos", "chismes internos", "estados financieros"],
+        "incorrectos": ["propósito", "valores", "clientes"]
+      },
+      {
+        "id": "2.9",
+        "instruccion": "Come los VALORES típicos en una misión socialmente responsable",
+        "correctos": ["ética", "sostenibilidad", "respeto", "diversidad", "transparencia"],
+        "incorrectos": ["dominación", "explotación", "opacidad"]
+      },
+      {
+        "id": "2.10",
+        "instruccion": "Come los STAKEHOLDERS que suelen mencionarse en una misión",
+        "correctos": ["clientes", "empleados", "accionistas", "comunidad", "proveedores"],
+        "incorrectos": ["competidores directos", "reguladores hostiles", "medios amarillistas"]
+      }
+    ]
+  },
+  "capitulo_3": {
+    "titulo": "Evaluación Externa",
+    "preguntas": [
+      {
+        "id": "3.1",
+        "instruccion": "Come solo las OPORTUNIDADES EXTERNAS",
+        "correctos": ["crecimiento del sector", "nueva tecnología disponible", "cambio demográfico favorable", "acuerdo comercial"],
+        "incorrectos": ["buena marca propia", "empleados capacitados", "deuda alta interna"]
+      },
+      {
+        "id": "3.2",
+        "instruccion": "Come solo las AMENAZAS EXTERNAS",
+        "correctos": ["nuevo competidor fuerte", "recesión económica", "cambio regulatorio", "producto sustituto"],
+        "incorrectos": ["baja moral interna", "obsolescencia de equipos", "rotación de personal"]
+      },
+      {
+        "id": "3.3",
+        "instruccion": "Come las 5 CATEGORÍAS de fuerzas externas clave (David)",
+        "correctos": ["económicas", "sociales/culturales", "políticas/legales", "tecnológicas", "competitivas"],
+        "incorrectos": ["salariales", "sindicales", "administrativas"]
+      },
+      {
+        "id": "3.4",
+        "instruccion": "Come las 5 FUERZAS DE PORTER",
+        "correctos": ["rivalidad entre competidores", "poder de proveedores", "poder de compradores", "nuevos entrantes", "productos sustitutos"],
+        "incorrectos": ["fuerza laboral", "fuerza sindical", "fuerza publicitaria"]
+      },
+      {
+        "id": "3.5",
+        "instruccion": "Come solo variables SOCIALES/DEMOGRÁFICAS",
+        "correctos": ["edad de la población", "urbanización", "estilo de vida", "nivel educativo"],
+        "incorrectos": ["tasa de interés", "PIB", "inflación"]
+      },
+      {
+        "id": "3.6",
+        "instruccion": "Come solo variables ECONÓMICAS",
+        "correctos": ["inflación", "tasa de cambio", "PIB", "desempleo", "tasas de interés"],
+        "incorrectos": ["cultura corporativa", "innovación producto", "diseño interior"]
+      },
+      {
+        "id": "3.7",
+        "instruccion": "Come los pasos correctos para construir la matriz EFE",
+        "correctos": ["listar 10-20 factores", "asignar pesos", "calificar respuesta", "multiplicar", "sumar puntaje"],
+        "incorrectos": ["invertir los pesos", "usar solo 3 factores", "omitir amenazas"]
+      },
+      {
+        "id": "3.8",
+        "instruccion": "Come afirmaciones correctas sobre la MATRIZ EFE",
+        "correctos": ["pesos suman 1", "calificaciones de 1 a 4", "puntaje >2.5 buena respuesta", "considera O y A"],
+        "incorrectos": ["ignora amenazas", "solo mide finanzas", "pesos suman 100"]
+      },
+      {
+        "id": "3.9",
+        "instruccion": "Come lo que evalúa la MATRIZ DE PERFIL COMPETITIVO (MPC)",
+        "correctos": ["factores críticos de éxito", "comparación con rivales", "posición relativa", "fortalezas competitivas"],
+        "incorrectos": ["balance general", "flujo de caja", "impuestos"]
+      },
+      {
+        "id": "3.10",
+        "instruccion": "Come solo indicadores de la fuerza RIVALIDAD entre competidores",
+        "correctos": ["muchos competidores", "crecimiento lento del sector", "productos poco diferenciados", "costos fijos altos"],
+        "incorrectos": ["cliente único", "monopolio legal", "sin sustitutos"]
+      }
+    ]
+  },
+  "capitulo_4": {
+    "titulo": "Evaluación Interna",
+    "preguntas": [
+      {
+        "id": "4.1",
+        "instruccion": "Come solo las FORTALEZAS INTERNAS",
+        "correctos": ["marca reconocida", "personal capacitado", "buena tecnología propia", "posición financiera sólida"],
+        "incorrectos": ["nuevo mercado disponible", "recesión", "nuevo competidor"]
+      },
+      {
+        "id": "4.2",
+        "instruccion": "Come solo las DEBILIDADES INTERNAS",
+        "correctos": ["alta rotación de personal", "deuda excesiva", "equipos obsoletos", "cultura tóxica"],
+        "incorrectos": ["crecimiento del sector", "cambio favorable de ley", "nueva tecnología accesible"]
+      },
+      {
+        "id": "4.3",
+        "instruccion": "Come las 6 ÁREAS FUNCIONALES de la auditoría interna",
+        "correctos": ["gerencia", "mercadotecnia", "finanzas", "producción", "investigación y desarrollo", "sistemas de información"],
+        "incorrectos": ["competencia", "gobierno", "clima"]
+      },
+      {
+        "id": "4.4",
+        "instruccion": "Come las RAZONES DE LIQUIDEZ",
+        "correctos": ["razón corriente", "prueba ácida", "capital de trabajo"],
+        "incorrectos": ["ROA", "ROE", "margen bruto"]
+      },
+      {
+        "id": "4.5",
+        "instruccion": "Come las RAZONES DE RENTABILIDAD",
+        "correctos": ["margen bruto", "ROA", "ROE", "margen neto"],
+        "incorrectos": ["razón corriente", "prueba ácida", "endeudamiento"]
+      },
+      {
+        "id": "4.6",
+        "instruccion": "Come las RAZONES DE APALANCAMIENTO",
+        "correctos": ["deuda/activo", "deuda/patrimonio", "cobertura de intereses"],
+        "incorrectos": ["margen neto", "rotación de inventario", "ROE"]
+      },
+      {
+        "id": "4.7",
+        "instruccion": "Come los pasos correctos de la MATRIZ EFI",
+        "correctos": ["listar F y D", "asignar pesos", "calificar 1-4", "multiplicar", "sumar"],
+        "incorrectos": ["ignorar F", "usar pesos negativos", "sumar cualitativo"]
+      },
+      {
+        "id": "4.8",
+        "instruccion": "Come componentes de la CULTURA ORGANIZACIONAL",
+        "correctos": ["valores compartidos", "rituales", "símbolos", "historias", "creencias"],
+        "incorrectos": ["utilidad neta", "inventario", "tasa de cambio"]
+      },
+      {
+        "id": "4.9",
+        "instruccion": "Come funciones típicas de MERCADOTECNIA",
+        "correctos": ["análisis de clientes", "planeación de producto", "fijación de precios", "distribución", "investigación"],
+        "incorrectos": ["auditoría fiscal", "impuestos", "contabilidad de nómina"]
+      },
+      {
+        "id": "4.10",
+        "instruccion": "Come afirmaciones correctas sobre la MATRIZ EFI",
+        "correctos": ["puntaje >2.5 fortaleza interna", "puntaje <2.5 debilidad interna", "pesos suman 1", "calificaciones 1 a 4"],
+        "incorrectos": ["mide entorno externo", "solo evalúa competidores", "usa dólares"]
+      }
+    ]
+  },
+  "capitulo_5": {
+    "titulo": "Estrategias en Acción",
+    "preguntas": [
+      {
+        "id": "5.1",
+        "instruccion": "Come solo las ESTRATEGIAS DE INTEGRACIÓN",
+        "correctos": ["integración hacia adelante", "integración hacia atrás", "integración horizontal"],
+        "incorrectos": ["penetración de mercado", "diversificación", "liquidación"]
+      },
+      {
+        "id": "5.2",
+        "instruccion": "Come solo las ESTRATEGIAS INTENSIVAS",
+        "correctos": ["penetración de mercado", "desarrollo de mercados", "desarrollo de productos"],
+        "incorrectos": ["integración horizontal", "liquidación", "diversificación conglomerada"]
+      },
+      {
+        "id": "5.3",
+        "instruccion": "Come solo las ESTRATEGIAS DE DIVERSIFICACIÓN",
+        "correctos": ["diversificación concéntrica", "diversificación horizontal", "diversificación conglomerada"],
+        "incorrectos": ["recorte de gastos", "penetración", "franquicia"]
+      },
+      {
+        "id": "5.4",
+        "instruccion": "Come solo las ESTRATEGIAS DEFENSIVAS",
+        "correctos": ["recorte de gastos", "enajenación", "liquidación"],
+        "incorrectos": ["desarrollo de producto", "alianza", "integración hacia adelante"]
+      },
+      {
+        "id": "5.5",
+        "instruccion": "Come las ESTRATEGIAS GENÉRICAS de Porter",
+        "correctos": ["liderazgo en costos", "diferenciación", "enfoque"],
+        "incorrectos": ["diversificación", "penetración", "enajenación"]
+      },
+      {
+        "id": "5.6",
+        "instruccion": "Come los MEDIOS para ejecutar estrategias",
+        "correctos": ["alianzas estratégicas", "fusiones", "adquisiciones", "joint ventures", "franquicias"],
+        "incorrectos": ["despidos masivos sin plan", "propaganda engañosa", "evasión fiscal"]
+      },
+      {
+        "id": "5.7",
+        "instruccion": "Come los ELEMENTOS de la CADENA DE VALOR (Porter)",
+        "correctos": ["logística interna", "operaciones", "logística externa", "marketing", "servicio", "infraestructura", "RRHH", "tecnología"],
+        "incorrectos": ["dividendos", "impuestos", "acciones"]
+      },
+      {
+        "id": "5.8",
+        "instruccion": "Come situaciones donde conviene INTEGRACIÓN HACIA ATRÁS",
+        "correctos": ["proveedores poco confiables", "costos de insumos altos", "pocos proveedores"],
+        "incorrectos": ["muchos proveedores", "insumos baratos", "cadena eficiente"]
+      },
+      {
+        "id": "5.9",
+        "instruccion": "Come situaciones donde conviene PENETRACIÓN DE MERCADO",
+        "correctos": ["mercado no saturado", "participación puede subir", "economías de escala"],
+        "incorrectos": ["mercado saturado", "sin capacidad extra", "producto obsoleto"]
+      },
+      {
+        "id": "5.10",
+        "instruccion": "Come situaciones donde conviene LIQUIDACIÓN",
+        "correctos": ["ninguna estrategia funciona", "solo opción es minimizar pérdidas", "recorte y enajenación fallaron"],
+        "incorrectos": ["negocio rentable", "mercado en crecimiento", "nueva oportunidad"]
+      }
+    ]
+  },
+  "capitulo_6": {
+    "titulo": "Análisis y Selección de la Estrategia",
+    "preguntas": [
+      {
+        "id": "6.1",
+        "instruccion": "Come las 3 ETAPAS del esquema de formulación",
+        "correctos": ["etapa de aportación", "etapa de ajuste", "etapa de decisión"],
+        "incorrectos": ["etapa de auditoría", "etapa de despido", "etapa de venta"]
+      },
+      {
+        "id": "6.2",
+        "instruccion": "Come las MATRICES de la ETAPA DE AJUSTE",
+        "correctos": ["FODA", "PEEA", "BCG", "IE", "Estrategia Principal"],
+        "incorrectos": ["balance general", "estado de resultados", "flujo de caja"]
+      },
+      {
+        "id": "6.3",
+        "instruccion": "Come los 4 tipos de estrategias del FODA",
+        "correctos": ["FO", "DO", "FA", "DA"],
+        "incorrectos": ["OD", "AF", "FF", "OA"]
+      },
+      {
+        "id": "6.4",
+        "instruccion": "Come los 4 cuadrantes de la MATRIZ BCG",
+        "correctos": ["estrella", "vaca lechera", "interrogante", "perro"],
+        "incorrectos": ["águila", "león", "tortuga", "delfín"]
+      },
+      {
+        "id": "6.5",
+        "instruccion": "Come los 4 cuadrantes de la MATRIZ PEEA",
+        "correctos": ["agresivo", "conservador", "defensivo", "competitivo"],
+        "incorrectos": ["pasivo", "neutro", "aleatorio", "reactivo"]
+      },
+      {
+        "id": "6.6",
+        "instruccion": "Come los ejes de la MATRIZ BCG",
+        "correctos": ["participación relativa de mercado", "tasa de crecimiento de la industria"],
+        "incorrectos": ["utilidad neta", "número de empleados", "años en el mercado"]
+      },
+      {
+        "id": "6.7",
+        "instruccion": "Come los ejes de la MATRIZ IE (Interna-Externa)",
+        "correctos": ["EFI en eje X", "EFE en eje Y"],
+        "incorrectos": ["ROE en X", "PIB en Y", "empleados en X"]
+      },
+      {
+        "id": "6.8",
+        "instruccion": "Come lo que hace la MPEC (Matriz de Planeación Estratégica Cuantitativa)",
+        "correctos": ["evalúa alternativas objetivamente", "usa puntajes ponderados", "decide entre estrategias", "usa factores clave"],
+        "incorrectos": ["reemplaza al gerente", "predice el futuro", "elimina el riesgo"]
+      },
+      {
+        "id": "6.9",
+        "instruccion": "Come lo que se hace en las estrategias FO del FODA",
+        "correctos": ["usar fortalezas para aprovechar oportunidades", "aplicar capacidades a nuevos mercados"],
+        "incorrectos": ["ignorar amenazas", "reducir debilidades solo", "cerrar la empresa"]
+      },
+      {
+        "id": "6.10",
+        "instruccion": "Come lo que se hace en las estrategias DA del FODA",
+        "correctos": ["reducir debilidades", "evitar amenazas", "estrategias defensivas"],
+        "incorrectos": ["expandir agresivamente", "ignorar el entorno", "crecer sin límites"]
+      }
+    ]
+  },
+  "capitulo_7": {
+    "titulo": "Implantación Gerencial",
+    "preguntas": [
+      {
+        "id": "7.1",
+        "instruccion": "Come los ELEMENTOS clave de la implantación gerencial",
+        "correctos": ["objetivos anuales", "políticas", "asignación de recursos", "manejo del cambio", "estructura"],
+        "incorrectos": ["diseño de logo", "creación de eslogan", "colores corporativos"]
+      },
+      {
+        "id": "7.2",
+        "instruccion": "Come las ESTRUCTURAS organizacionales posibles",
+        "correctos": ["funcional", "por divisiones", "por UEN", "matricial"],
+        "incorrectos": ["horizontal solo", "invertida siempre", "circular"]
+      },
+      {
+        "id": "7.3",
+        "instruccion": "Come lo que dice el PRINCIPIO DE CHANDLER",
+        "correctos": ["la estructura sigue a la estrategia", "cambio de estrategia implica revisar estructura"],
+        "incorrectos": ["la estrategia sigue a la estructura", "la estructura es permanente", "el organigrama fija la estrategia"]
+      },
+      {
+        "id": "7.4",
+        "instruccion": "Come los TIPOS DE RECURSOS a asignar",
+        "correctos": ["financieros", "físicos", "humanos", "tecnológicos"],
+        "incorrectos": ["mágicos", "espirituales", "gratuitos"]
+      },
+      {
+        "id": "7.5",
+        "instruccion": "Come las formas de MANEJAR EL CAMBIO",
+        "correctos": ["comunicación", "participación", "capacitación", "recompensas"],
+        "incorrectos": ["ignorar la resistencia", "imponer sin diálogo", "amenazar"]
+      },
+      {
+        "id": "7.6",
+        "instruccion": "Come las características de los OBJETIVOS ANUALES",
+        "correctos": ["cuantitativos", "medibles", "realistas", "consistentes"],
+        "incorrectos": ["vagos", "imposibles", "contradictorios"]
+      },
+      {
+        "id": "7.7",
+        "instruccion": "Come lo que hacen las POLÍTICAS empresariales",
+        "correctos": ["guían decisiones repetitivas", "establecen límites", "dan consistencia", "apoyan políticas anuales"],
+        "incorrectos": ["reemplazan al gerente", "eliminan la creatividad completamente", "solo son sugerencias opcionales"]
+      },
+      {
+        "id": "7.8",
+        "instruccion": "Come las causas de RESISTENCIA AL CAMBIO",
+        "correctos": ["miedo a lo desconocido", "pérdida de poder", "hábitos arraigados", "desconfianza"],
+        "incorrectos": ["deseo de innovar", "amor al cambio", "flexibilidad natural"]
+      },
+      {
+        "id": "7.9",
+        "instruccion": "Come las ventajas de la ESTRUCTURA POR DIVISIONES",
+        "correctos": ["autonomía por producto/región", "responsabilidad clara", "adaptación local", "medición fácil"],
+        "incorrectos": ["duplica funciones", "unifica cultura completamente", "elimina competencia interna"]
+      },
+      {
+        "id": "7.10",
+        "instruccion": "Come las ventajas de la ESTRUCTURA MATRICIAL",
+        "correctos": ["combina especialización y proyectos", "mejor uso de expertos", "flexibilidad", "comunicación multidimensional"],
+        "incorrectos": ["reporte único y simple", "sin conflictos", "cadena de mando lineal"]
+      }
+    ]
+  },
+  "capitulo_8": {
+    "titulo": "Implantación Funcional",
+    "preguntas": [
+      {
+        "id": "8.1",
+        "instruccion": "Come las 4 áreas de la IMPLANTACIÓN FUNCIONAL",
+        "correctos": ["mercadotecnia", "finanzas", "investigación y desarrollo", "sistemas de información"],
+        "incorrectos": ["seguridad física", "portería", "aseo"]
+      },
+      {
+        "id": "8.2",
+        "instruccion": "Come temas típicos de MERCADOTECNIA en implantación",
+        "correctos": ["segmentación de mercado", "posicionamiento", "estrategia de precios", "uso de Internet"],
+        "incorrectos": ["auditoría financiera", "declaración de impuestos", "nómina"]
+      },
+      {
+        "id": "8.3",
+        "instruccion": "Come temas de FINANZAS Y CONTABILIDAD en implantación",
+        "correctos": ["adquisición de capital", "estados pro forma", "presupuestos", "valuación", "decisión de cotizar"],
+        "incorrectos": ["diseño gráfico", "eventos internos", "cafetería"]
+      },
+      {
+        "id": "8.4",
+        "instruccion": "Come las opciones de ADQUISICIÓN DE CAPITAL",
+        "correctos": ["deuda", "patrimonio", "utilidades retenidas", "emisión de acciones"],
+        "incorrectos": ["lotería", "regalo del gobierno", "cripto especulativa"]
+      },
+      {
+        "id": "8.5",
+        "instruccion": "Come lo que son los ESTADOS FINANCIEROS PRO FORMA",
+        "correctos": ["proyecciones futuras", "escenarios financieros", "presupuestos financieros", "planeación monetaria"],
+        "incorrectos": ["balances históricos", "auditoría del año pasado", "informe cerrado"]
+      },
+      {
+        "id": "8.6",
+        "instruccion": "Come temas de IyD en implantación",
+        "correctos": ["IyD interna vs externa", "políticas de innovación", "vinculación con estrategia", "presupuesto de innovación"],
+        "incorrectos": ["diseño de uniforme", "colores del logo", "canciones publicitarias"]
+      },
+      {
+        "id": "8.7",
+        "instruccion": "Come temas de SISTEMAS DE INFORMACIÓN GERENCIAL (SIG)",
+        "correctos": ["bases de datos como ventaja", "software estratégico", "seguridad de información", "calidad de datos"],
+        "incorrectos": ["ventas de sillas", "decoración de oficina", "café gratis"]
+      },
+      {
+        "id": "8.8",
+        "instruccion": "Come los criterios de SEGMENTACIÓN DE MERCADO",
+        "correctos": ["demográfico", "geográfico", "psicográfico", "conductual"],
+        "incorrectos": ["astrológico", "supersticioso", "por color de pelo"]
+      },
+      {
+        "id": "8.9",
+        "instruccion": "Come formas correctas de POSICIONAMIENTO",
+        "correctos": ["por atributos", "por precio", "por beneficios", "por competencia", "por uso"],
+        "incorrectos": ["por moneda", "por edad del CEO", "por antigüedad"]
+      },
+      {
+        "id": "8.10",
+        "instruccion": "Come afirmaciones correctas sobre IPO (cotizar en bolsa)",
+        "correctos": ["capta capital masivo", "aumenta visibilidad", "obliga a transparencia", "diluye propiedad"],
+        "incorrectos": ["mantiene control absoluto", "reduce transparencia", "es gratuita"]
+      }
+    ]
+  },
+  "capitulo_9": {
+    "titulo": "Revisión, Evaluación y Control",
+    "preguntas": [
+      {
+        "id": "9.1",
+        "instruccion": "Come las 3 ACTIVIDADES fundamentales de la evaluación estratégica",
+        "correctos": ["revisar bases de la estrategia", "medir rendimiento", "aplicar medidas correctivas"],
+        "incorrectos": ["cerrar la empresa", "aumentar precios", "despedir personal"]
+      },
+      {
+        "id": "9.2",
+        "instruccion": "Come los 4 CRITERIOS DE RUMELT",
+        "correctos": ["consistencia", "consonancia", "factibilidad", "ventaja"],
+        "incorrectos": ["rentabilidad inmediata", "popularidad", "simplicidad", "velocidad"]
+      },
+      {
+        "id": "9.3",
+        "instruccion": "Come las 4 PERSPECTIVAS del BALANCED SCORECARD",
+        "correctos": ["financiera", "cliente", "procesos internos", "aprendizaje y crecimiento"],
+        "incorrectos": ["astrológica", "gubernamental", "sindical", "religiosa"]
+      },
+      {
+        "id": "9.4",
+        "instruccion": "Come lo que evalúa el CRITERIO DE CONSISTENCIA (Rumelt)",
+        "correctos": ["objetivos no contradictorios", "coherencia interna", "sin políticas opuestas"],
+        "incorrectos": ["popularidad social", "aprobación pública", "seguidores en redes"]
+      },
+      {
+        "id": "9.5",
+        "instruccion": "Come lo que evalúa el CRITERIO DE CONSONANCIA (Rumelt)",
+        "correctos": ["coherencia con el entorno", "adaptación al mercado", "responde a tendencias"],
+        "incorrectos": ["ignora al competidor", "cerrado a cambios", "solo mira adentro"]
+      },
+      {
+        "id": "9.6",
+        "instruccion": "Come lo que evalúa el CRITERIO DE FACTIBILIDAD (Rumelt)",
+        "correctos": ["recursos suficientes", "capacidad de ejecución", "realista en tiempo y dinero"],
+        "incorrectos": ["magia", "milagros", "suerte pura"]
+      },
+      {
+        "id": "9.7",
+        "instruccion": "Come lo que evalúa el CRITERIO DE VENTAJA (Rumelt)",
+        "correctos": ["crea ventaja competitiva", "sostiene diferenciación", "genera valor único"],
+        "incorrectos": ["imita al líder", "copia estrategias ajenas", "sigue la moda"]
+      },
+      {
+        "id": "9.8",
+        "instruccion": "Come herramientas útiles para EVALUAR la estrategia",
+        "correctos": ["auditoría interna", "auditoría externa", "BSC", "planeación de contingencia", "auditoría ambiental"],
+        "incorrectos": ["tarot", "horóscopo", "adivinación"]
+      },
+      {
+        "id": "9.9",
+        "instruccion": "Come las características de un SISTEMA DE EVALUACIÓN EFICAZ",
+        "correctos": ["oportuno", "significativo", "objetivo", "sencillo", "accionable"],
+        "incorrectos": ["confuso", "tardío", "subjetivo", "irrelevante"]
+      },
+      {
+        "id": "9.10",
+        "instruccion": "Come afirmaciones correctas sobre la EVALUACIÓN ESTRATÉGICA",
+        "correctos": ["es continua no anual", "compara real vs planeado", "guía correcciones", "aprende del pasado"],
+        "incorrectos": ["se hace una vez y ya", "solo el CEO decide", "es opcional"]
+      }
+    ]
+  }
+}

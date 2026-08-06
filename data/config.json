@@ -1,0 +1,40 @@
+{
+  "curso": "Administración Estratégica",
+  "institucion": "Corporación Unificada Nacional (CUN)",
+  "version": "1.0.0",
+  "google_sheets_endpoint": "https://script.google.com/macros/s/AKfycbzKaZcp6P7zfDvoRZ-LjS_mD-ehc3Q0-UVqdMhvTzkX0qG-KbSymqvucI8uA3MuvCMa/exec",
+  "email_domain": "cun.edu.co",
+  "juego": {
+    "grid_cols": 40,
+    "grid_rows": 25,
+    "cell_size": 20,
+    "speed_ms_inicial": 140,
+    "speed_ms_min": 70,
+    "aceleracion_por_nivel": 8,
+    "vidas": 3,
+    "tiempo_por_nivel_seg": 60,
+    "puntos_por_acierto": 10,
+    "puntos_por_error": -5,
+    "bonus_nivel_completado": 50,
+    "bonus_tiempo_por_seg": 1,
+    "penalizacion_pista": 0.7
+  },
+  "bonificacion_aca": [
+    { "min": 0,    "max": 499,   "bonus": 0.0 },
+    { "min": 500,  "max": 999,   "bonus": 0.5 },
+    { "min": 1000, "max": 1499,  "bonus": 1.0 },
+    { "min": 1500, "max": 1999,  "bonus": 1.5 },
+    { "min": 2000, "max": 999999,"bonus": 2.0 }
+  ],
+  "capitulos": [
+    { "num": 1, "titulo": "Naturaleza de la Dirección Estratégica", "icono": "🎯" },
+    { "num": 2, "titulo": "La Misión de la Empresa",                "icono": "🧭" },
+    { "num": 3, "titulo": "Evaluación Externa",                     "icono": "🌍" },
+    { "num": 4, "titulo": "Evaluación Interna",                     "icono": "🏢" },
+    { "num": 5, "titulo": "Estrategias en Acción",                  "icono": "♟️" },
+    { "num": 6, "titulo": "Análisis y Selección de la Estrategia",  "icono": "🔀" },
+    { "num": 7, "titulo": "Implantación Gerencial",                 "icono": "⚙️" },
+    { "num": 8, "titulo": "Implantación Funcional",                 "icono": "💼" },
+    { "num": 9, "titulo": "Revisión, Evaluación y Control",         "icono": "📊" }
+  ]
+}
