@@ -295,7 +295,21 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
 .bonus-info tr:hover td { background: rgba(200,155,50,0.08); }
 
 /* ==================== JUEGO (canvas y HUD) ==================== */
-.game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 10px; flex-wrap: wrap; }
+.game-header-right { display: flex; align-items: center; gap: 8px; }
+.level-jump-label { color: var(--gris-texto); font-size: 0.85rem; font-weight: 600; }
+.level-jump-label select {
+  margin-left: 6px;
+  padding: 6px 10px;
+  border: 2px solid var(--gris-borde);
+  border-radius: 6px;
+  background: white;
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.level-jump-label select:hover { border-color: var(--dorado); }
+.level-jump-label select:focus { outline: none; border-color: var(--morado-lab); }
 .game-hud {
   display: flex; gap: 20px; background: var(--azul-cun); color: white;
   padding: 10px 20px; border-radius: 8px; font-size: 0.95rem;
