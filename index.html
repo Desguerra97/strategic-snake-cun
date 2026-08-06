@@ -168,18 +168,25 @@
         <button id="btn-lab-exit-game" class="btn-ghost">← Salir</button>
         <div class="game-hud">
           <span>Puntaje <b id="lab-hud-score">0</b></span>
-          <span>Progreso <b id="lab-hud-lives">❤❤❤</b></span>
+          <span>Progreso <b id="lab-hud-lives">0/0 ❤❤❤</b></span>
           <span>Tiempo <b id="lab-hud-time">90s</b></span>
         </div>
-        <button id="btn-fullscreen-lab" class="btn-ghost" title="Pantalla completa (Esc para salir)">⛶ Pantalla completa</button>
+        <div class="game-header-right">
+          <label class="level-jump-label">Ir a nivel:
+            <select id="lab-level-jump">
+              <option value="">--</option>
+            </select>
+          </label>
+          <button id="btn-fullscreen-lab" class="btn-ghost" title="Pantalla completa (Esc para salir)">⛶</button>
+        </div>
       </div>
       <div class="question-bar">
         <p id="lab-game-instr">...</p>
       </div>
-      <canvas id="lab-canvas" width="800" height="440"></canvas>
+      <canvas id="lab-canvas" width="720" height="468"></canvas>
       <div id="lab-game-container" class="lab-game-container" style="display:none"></div>
       <div class="controls-hint">
-        <p>Snake: <kbd>←</kbd> <kbd>↑</kbd> <kbd>↓</kbd> <kbd>→</kbd> o <kbd>WASD</kbd> · <kbd>Espacio</kbd> pausa · En sorting arrastra con el ratón.</p>
+        <p>Muévete con <kbd>←</kbd> <kbd>↑</kbd> <kbd>↓</kbd> <kbd>→</kbd> o <kbd>WASD</kbd> · <kbd>Espacio</kbd> pausa · Recoge todos los verdes y sale por la puerta 🚪</p>
       </div>
     </section>
 
@@ -255,6 +262,7 @@
   <script src="game/content-loader.js"></script>
   <script src="game/sheets-sender.js"></script>
   <script src="game/snake.js"></script>
+  <script src="game/diamond-rush.js"></script>
   <script src="game/lab-engines.js"></script>
   <script src="game/pdf-generator.js"></script>
   <script src="game/lab-mode.js"></script>
