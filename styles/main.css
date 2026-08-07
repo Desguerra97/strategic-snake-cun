@@ -125,7 +125,14 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
 }
 .lab-level-card.locked {
   opacity: 0.55; cursor: not-allowed; background: var(--gris-fondo);
+  filter: grayscale(0.6);
 }
+.lab-level-card.locked:hover { transform: none; box-shadow: none; }
+.lab-level-card.completed {
+  background: linear-gradient(135deg, #e6f7ee, #ffffff);
+  border-color: var(--verde-ok);
+}
+.lab-level-card.completed .lab-level-status { color: var(--verde-ok); font-weight: 700; }
 .lab-level-num {
   font-size: 0.7rem; color: var(--morado-lab); font-weight: 700;
   letter-spacing: 1.5px; text-transform: uppercase;
@@ -332,6 +339,52 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
   box-shadow: var(--sombra); max-width: 100%; height: auto;
 }
 #lab-canvas { border-color: var(--morado-lab); }
+
+/* Wrap del canvas para superponer el quiz */
+.canvas-wrap { position: relative; max-width: 100%; margin: 0 auto; display: flex; justify-content: center; }
+
+/* Overlay del quiz de bloqueo */
+.quiz-overlay {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex; justify-content: center; align-items: center;
+  border-radius: 12px; z-index: 10; padding: 20px;
+}
+.quiz-modal {
+  background: white; border-radius: 12px; padding: 24px;
+  max-width: 500px; width: 100%;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  border-top: 6px solid var(--dorado);
+  animation: quiz-in 0.25s ease;
+}
+@keyframes quiz-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.quiz-header {
+  font-size: 0.9rem; color: var(--dorado);
+  font-weight: 700; letter-spacing: 1px; margin-bottom: 10px;
+}
+.quiz-question {
+  font-size: 1.05rem; color: var(--azul-cun);
+  font-weight: 700; margin-bottom: 18px; line-height: 1.4;
+}
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-opt {
+  background: var(--gris-fondo); color: var(--azul-cun);
+  border: 2px solid var(--gris-borde);
+  padding: 12px 16px; border-radius: 8px;
+  text-align: left; font-size: 0.95rem;
+  cursor: pointer; transition: all 0.15s;
+}
+.quiz-opt:hover {
+  background: var(--dorado); color: white;
+  border-color: var(--dorado); transform: translateX(4px);
+}
+.quiz-hint {
+  margin-top: 14px; font-size: 0.8rem;
+  color: var(--gris-texto); font-style: italic; text-align: center;
+}
 
 .controls-hint { text-align: center; margin-top: 12px; color: var(--gris-texto); font-size: 0.9rem; }
 
