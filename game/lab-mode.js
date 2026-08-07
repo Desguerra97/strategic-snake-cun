@@ -173,7 +173,20 @@
     gameDuration = duration || Math.floor((Date.now() - gameStartTime) / 1000);
     lastLevelCompleted = !!completed;
     if (completed) markLevelCompleted(currentLevel.num);
+    saveLabScore(currentLevel.num, score);
     showOpenQuestion();
+  }
+
+  function saveLabScore(nivelNum, score) {
+    try {
+      const raw = localStorage.getItem('cun_lab_best') || '{}';
+      const b = JSON.parse(raw);
+      if (!b[nivelNum] || score > b[nivelNum]) {
+        b[nivelNum] = score;
+        localStorage.setItem('cun_lab_best', JSON.stringify(b));
+      }
+      if (window.UI && window.UI.refreshMenuStats) window.UI.refreshMenuStats();
+    } catch (_) {}
   }
 
   // ============================================================
@@ -238,12 +251,36 @@
     });
 
     if (!fbResult.ok) {
+      // Fallback: evaluación por reglas cuando la IA falla (ej. cuota Gemini agotada)
+      const ruleFb = evaluateByRules(respuesta, currentLevel.pregunta_abierta.min_palabras);
       $('#lab-feedback-status').innerHTML =
-        `⚠️ Respuesta guardada, pero la IA no pudo evaluar.<br>Error: ${fbResult.error}`;
-      renderFinalScore(null);
+        `⚠️ La IA está saturada temporalmente. Te muestro una evaluación automática básica.<br>` +
+        `<small>Tu respuesta quedó guardada y el docente la revisará. Puedes seguir al siguiente nivel.</small>`;
+      renderFeedback(ruleFb);
       return;
     }
     renderFeedback(fbResult.feedback);
+  }
+
+  function evaluateByRules(respuesta, minPalabras) {
+    const palabras = respuesta.trim().split(/\s+/).filter(Boolean).length;
+    const ratio = Math.min(palabras / minPalabras, 1.5);
+    const score = Math.round(Math.min(10, 3 + ratio * 5));
+    const fortalezas = [];
+    const sugerencias = [];
+    const faltantes = [];
+    if (palabras >= minPalabras) fortalezas.push('Cumples el mínimo de ' + minPalabras + ' palabras (' + palabras + ' escritas).');
+    else faltantes.push('Te faltan ' + (minPalabras - palabras) + ' palabras para el mínimo requerido.');
+    if (respuesta.length > minPalabras * 6) fortalezas.push('Redacción extensa y detallada.');
+    if (/\d/.test(respuesta)) fortalezas.push('Incluyes datos numéricos concretos.');
+    else sugerencias.push('Añade datos numéricos, cifras o fechas para dar mayor solidez.');
+    if (/[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+/.test(respuesta)) fortalezas.push('Uso adecuado de nombres propios.');
+    sugerencias.push('Revisa la ortografía antes de la entrega oficial en Moodle.');
+    sugerencias.push('Amplía cada punto con un ejemplo concreto de tu propia idea.');
+    return {
+      score, fortalezas, sugerencias, elementosFaltantes: faltantes,
+      comentarioGeneral: 'Evaluación automática básica. Cuando la IA esté disponible, tu respuesta será re-evaluada. Mientras tanto, sigue avanzando; tu progreso quedó guardado.'
+    };
   }
 
   function renderFeedback(fb) {
