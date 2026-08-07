@@ -183,7 +183,10 @@
       <div class="question-bar">
         <p id="lab-game-instr">...</p>
       </div>
-      <canvas id="lab-canvas" width="720" height="468"></canvas>
+      <div class="canvas-wrap">
+        <canvas id="lab-canvas" width="720" height="468"></canvas>
+        <div id="quiz-overlay" class="quiz-overlay" style="display:none"></div>
+      </div>
       <div id="lab-game-container" class="lab-game-container" style="display:none"></div>
       <div class="controls-hint">
         <p>Muévete con <kbd>←</kbd> <kbd>↑</kbd> <kbd>↓</kbd> <kbd>→</kbd> o <kbd>WASD</kbd> · <kbd>Espacio</kbd> pausa · Recoge todos los verdes y sale por la puerta 🚪</p>
@@ -247,7 +250,8 @@
             <b id="lab-nivel-score">— / 10</b>
           </div>
           <div class="end-actions">
-            <button id="btn-lab-continue" class="btn-primary btn-large">Volver al menú y continuar</button>
+            <button id="btn-lab-next-level" class="btn-primary btn-large" style="display:none">▶ Siguiente nivel</button>
+            <button id="btn-lab-continue" class="btn-secondary btn-large">Volver al menú</button>
           </div>
         </div>
       </div>
