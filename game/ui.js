@@ -57,25 +57,11 @@
     } catch { return null; }
   }
   function saveStudent(s) { localStorage.setItem('cun_snake_student', JSON.stringify(s)); }
-  function getBestScore(chapter) {
-    try {
-      const b = JSON.parse(localStorage.getItem('cun_snake_best') || '{}');
-      return b[chapter] || 0;
-    } catch { return 0; }
-  }
-  function saveBestScore(chapter, score) {
-    const b = JSON.parse(localStorage.getItem('cun_snake_best') || '{}');
-    if (!b[chapter] || score > b[chapter]) {
-      b[chapter] = score;
-      localStorage.setItem('cun_snake_best', JSON.stringify(b));
-      return true;
-    }
-    return false;
-  }
   function getTotalBest() {
+    // Suma del mejor puntaje por nivel del Laboratorio de Ideas
     try {
-      const b = JSON.parse(localStorage.getItem('cun_snake_best') || '{}');
-      return Object.values(b).reduce((a, v) => a + v, 0);
+      const b = JSON.parse(localStorage.getItem('cun_lab_best') || '{}');
+      return Object.values(b).reduce((a, v) => a + (Number(v) || 0), 0);
     } catch { return 0; }
   }
 
@@ -118,18 +104,8 @@
         location.reload();
       }
     });
-    $('#btn-refresh-ranking').addEventListener('click', refreshRanking);
-    $('#btn-back-menu').addEventListener('click', () => {
-      if (confirm('¿Salir de la partida actual?')) {
-        window.SnakeGame.stop();
-        goToMenu();
-      }
-    });
-    $('#btn-back-menu2').addEventListener('click', goToMenu);
-    $('#btn-play-again').addEventListener('click', () => {
-      const lastChapter = window._lastPlayedChapter || 1;
-      startClassicGame(lastChapter);
-    });
+    const btnRR = $('#btn-refresh-ranking');
+    if (btnRR) btnRR.addEventListener('click', refreshRanking);
 
     // Botón "Menú principal" — global, funciona en cualquier pantalla
     document.querySelectorAll('.btn-menu-return').forEach(btn => {
@@ -167,8 +143,7 @@
       });
     }
 
-    // Pantalla completa (ambos modos)
-    bindFullscreen('#btn-fullscreen-classic', '#screen-game');
+    // Pantalla completa (solo el Laboratorio)
     bindFullscreen('#btn-fullscreen-lab', '#screen-lab-game');
   }
 
@@ -208,33 +183,12 @@
     const total = getTotalBest();
     $('#lbl-best').textContent = total;
     $('#lbl-bonus').textContent = '+' + calcBonus(total).toFixed(1);
-    renderChapters();
     refreshRanking();
     window.LabMode.init(cfg, levelsData, student);
     showScreen('menu');
   }
 
-  function renderChapters() {
-    const grid = $('#chapter-grid');
-    grid.innerHTML = '';
-    const randomCard = document.createElement('button');
-    randomCard.className = 'chapter-btn random';
-    randomCard.innerHTML = `<strong>🎲 Aleatorio</strong><small>10 preguntas al azar de los 9 caps</small>`;
-    randomCard.addEventListener('click', () => startClassicGame('random'));
-    grid.appendChild(randomCard);
-    cfg.capitulos.forEach(c => {
-      const best = getBestScore(c.num);
-      const btn = document.createElement('button');
-      btn.className = 'chapter-btn';
-      btn.innerHTML = `
-        <strong>${c.icono} Cap. ${c.num}</strong>
-        <small>${c.titulo}</small>
-        <small style="color:var(--dorado);font-weight:700;">Mejor: ${best} pts</small>
-      `;
-      btn.addEventListener('click', () => startClassicGame(c.num));
-      grid.appendChild(btn);
-    });
-  }
+  // Modo clásico eliminado — solo se usa el Laboratorio de Ideas
 
   async function refreshRanking() {
     const list = $('#ranking-list');
@@ -255,41 +209,13 @@
     });
   }
 
-  function startClassicGame(chapter) {
-    window._lastPlayedChapter = chapter;
-    showScreen('game');
-    window.SnakeGame.start(chapter, cfg, questions);
-  }
-
+  // API pública: para que LabMode pueda refrescar el contador tras completar niveles
   window.UI = {
-    async showEndScreen(result) {
-      const bonusNow = calcBonus(result.score);
-      $('#end-title').textContent = result.completed ? '🏆 ¡Capítulo completado!' : '🎯 Fin de la partida';
-      $('#end-score').textContent = result.score;
-      $('#end-hits').textContent = result.hits;
-      $('#end-misses').textContent = result.misses;
-      $('#end-duration').textContent = result.duration + 's';
-      $('#end-bonus').textContent = '+' + bonusNow.toFixed(1) + ' puntos ACA';
-      const chapterKey = result.chapter === 'random' ? 'random' : String(result.chapter);
-      const isNewBest = saveBestScore(chapterKey, result.score);
-      const status = $('#send-status');
-      status.className = 'send-status';
-      status.textContent = 'Enviando resultado al docente...';
-      const sendResult = await window.SheetsSender.send({
-        endpoint: cfg.google_sheets_endpoint,
-        name: student.name, email: student.email,
-        chapter: result.chapter, score: result.score,
-        hits: result.hits, misses: result.misses,
-        duration: result.duration, bonus: bonusNow
-      });
-      if (sendResult.ok) {
-        status.className = 'send-status ok';
-        status.textContent = '✓ Resultado enviado. ' + (isNewBest ? '¡Nuevo récord!' : '');
-      } else {
-        status.className = 'send-status err';
-        status.textContent = '⚠ No se pudo enviar (' + sendResult.error + ').';
-      }
-      showScreen('end');
+    refreshMenuStats() {
+      if (!student || !cfg) return;
+      const total = getTotalBest();
+      const lbl = $('#lbl-best'); if (lbl) lbl.textContent = total;
+      const lbb = $('#lbl-bonus'); if (lbb) lbb.textContent = '+' + calcBonus(total).toFixed(1);
     }
   };
 
