@@ -70,18 +70,11 @@
         </div>
       </div>
 
-      <div class="two-cols">
-        <div class="card">
-          <h3>🎮 Modo clásico (culebrita por capítulos)</h3>
-          <p class="hint">Preguntas rápidas por capítulo del libro Fred David. Ideal para repasar teoría.</p>
-          <div class="chapter-grid" id="chapter-grid"></div>
-        </div>
-        <div class="card ranking-card">
-          <h3>🏆 Ranking Top 10</h3>
-          <p class="hint">Mejores estrategas de la semana</p>
-          <ol id="ranking-list"><li class="ranking-empty">Cargando...</li></ol>
-          <button id="btn-refresh-ranking" class="btn-secondary">↻ Actualizar</button>
-        </div>
+      <div class="card ranking-card">
+        <h3>🏆 Ranking Top 10 · Los mejores estrategas</h3>
+        <p class="hint">Los estudiantes con mejor puntaje acumulado del semestre</p>
+        <ol id="ranking-list"><li class="ranking-empty">Cargando...</li></ol>
+        <button id="btn-refresh-ranking" class="btn-secondary">↻ Actualizar ranking</button>
       </div>
 
       <div class="card bonus-info">
@@ -249,10 +242,11 @@
             <span>Puntaje total de este nivel:</span>
             <b id="lab-nivel-score">— / 10</b>
           </div>
-          <div class="end-actions">
-            <button id="btn-lab-next-level" class="btn-primary btn-large" style="display:none">▶ Siguiente nivel</button>
-            <button id="btn-lab-continue" class="btn-secondary btn-large">Volver al menú</button>
-          </div>
+        </div>
+        <!-- Botones SIEMPRE visibles, incluso si la IA falla -->
+        <div class="end-actions" id="lab-feedback-actions">
+          <button id="btn-lab-next-level" class="btn-primary btn-large" style="display:none">▶ Siguiente nivel</button>
+          <button id="btn-lab-continue" class="btn-secondary btn-large">Volver al menú</button>
         </div>
       </div>
     </section>
