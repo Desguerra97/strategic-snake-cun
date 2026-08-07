@@ -1,70 +1,47 @@
 {
   "meta": {
     "nombre": "Laboratorio de Ideas de Negocio",
-    "descripcion": "Construye tu plan de negocio jugando. Cada nivel es Diamond Rush con conceptos del capítulo."
+    "descripcion": "Diamond Rush estratégico: recoge conceptos, resuelve dilemas, usa portales. Sólo avanzas si completas el nivel actual."
   },
   "niveles": [
     {
       "num": 1,
       "titulo": "Descripción de tu idea + Claves de éxito",
       "seccion_documento": "0.1 Descripción + Claves de éxito",
-      "concepto": "Toda idea de negocio necesita una descripción clara (nombre, actividad económica, propuesta) y factores únicos que la diferencien (claves de éxito) más allá del precio o la calidad genérica.",
+      "concepto": "Toda idea de negocio necesita una descripción clara y factores únicos que la diferencien (claves de éxito) más allá del precio o la calidad genérica.",
       "tiempo_seg": 90,
-      "instruccion_juego": "Recoge los factores UNICOS (verdes) y esquiva los commodities (rojos) y enemigos.",
-      "tokens_correctos": [
-        "propuesta única",
-        "tecnología propia",
-        "modelo innovador",
-        "experiencia UX",
-        "aliados clave",
-        "conocimiento único",
-        "marca fuerte",
-        "cadena propia",
-        "cultura única"
-      ],
-      "tokens_incorrectos": [
-        "precio bajo",
-        "buena calidad",
-        "atención 24/7",
-        "buen producto",
-        "publicidad genérica"
+      "dificultad": { "enemigos": 1, "portales": 0, "bloqueados": 0, "muros_densidad": 0.08 },
+      "instruccion_juego": "Recoge factores UNICOS (verdes) y esquiva commodities (rojos) y enemigos.",
+      "tokens_correctos": ["propuesta única", "tecnología propia", "modelo innovador", "experiencia UX", "aliados clave", "conocimiento único", "marca fuerte"],
+      "tokens_incorrectos": ["precio bajo", "buena calidad", "atención 24/7", "buen producto"],
+      "quiz_bloqueo": [
+        { "q": "¿Qué es una clave de éxito real?", "opciones": ["Tener buena calidad", "Precio bajo", "Factor único difícil de imitar"], "correcta": 2 }
       ],
       "pregunta_abierta": {
         "titulo": "Describe tu idea de negocio y sus claves de éxito",
-        "instruccion": "Redacta la descripción de tu idea de negocio con mínimo 200 palabras. Incluye el nombre de tu empresa y la actividad económica. Luego enumera al menos 3 claves de éxito (factores únicos que te dan ventaja más allá de precio o calidad genérica).",
+        "instruccion": "Redacta la descripción de tu idea de negocio con mínimo 200 palabras. Incluye el nombre de tu empresa y la actividad económica. Luego enumera al menos 3 claves de éxito.",
         "min_palabras": 200,
-        "placeholder": "Ejemplo: Nuestra empresa 'BikeFix Bogotá' se dedica a la reparación móvil de bicicletas urbanas. Actividad económica: 3312 (CIIU)...\n\nClaves de éxito:\n1. Servicio a domicilio en menos de 60 min\n2. App con seguimiento en tiempo real\n3. Alianzas con edificios corporativos"
+        "placeholder": "Ejemplo: 'BikeFix Bogotá' se dedica a la reparación móvil de bicicletas urbanas (CIIU 3312)...\n\nClaves de éxito:\n1. Servicio a domicilio en <60 min\n2. App con seguimiento en tiempo real\n3. Alianzas con edificios corporativos"
       }
     },
     {
       "num": 2,
       "titulo": "Justificación (necesidad + innovación)",
       "seccion_documento": "0.2 Justificación",
-      "concepto": "Toda idea debe responder a una necesidad real del mercado (problema insatisfecho) y aportar un factor de innovación.",
+      "concepto": "Toda idea debe responder a una necesidad real del mercado y aportar innovación.",
       "tiempo_seg": 90,
-      "instruccion_juego": "Recoge las NECESIDADES REALES e INNOVACIONES. Evita las modas y suposiciones.",
-      "tokens_correctos": [
-        "problema doloroso",
-        "gasto excesivo",
-        "tiempo perdido",
-        "IA aplicada",
-        "por suscripción",
-        "mercado desatendido",
-        "automatización",
-        "sin fricción"
-      ],
-      "tokens_incorrectos": [
-        "está de moda",
-        "todos lo hacen",
-        "imitar sin cambio",
-        "corazonada",
-        "familiar lo dijo"
+      "dificultad": { "enemigos": 2, "portales": 1, "bloqueados": 0, "muros_densidad": 0.10 },
+      "instruccion_juego": "Usa los PORTALES para escapar de enemigos. Recoge necesidades reales.",
+      "tokens_correctos": ["problema doloroso", "gasto excesivo", "tiempo perdido", "IA aplicada", "por suscripción", "mercado desatendido", "automatización"],
+      "tokens_incorrectos": ["está de moda", "todos lo hacen", "corazonada", "familiar dijo"],
+      "quiz_bloqueo": [
+        { "q": "¿Qué justifica MEJOR una idea de negocio?", "opciones": ["Está de moda", "Necesidad real con innovación", "Un familiar lo pidió"], "correcta": 1 }
       ],
       "pregunta_abierta": {
         "titulo": "Justifica tu idea de negocio",
-        "instruccion": "En máximo 5 líneas (aprox. 80 palabras), explica: (1) la necesidad insatisfecha o oportunidad de mercado que tu idea resuelve, y (2) cuál es tu factor de innovación diferenciador.",
+        "instruccion": "En máximo 5 líneas explica: (1) la necesidad insatisfecha y (2) tu factor de innovación diferenciador.",
         "min_palabras": 60,
-        "placeholder": "Ejemplo: En Bogotá hay 900.000 bicicletas y solo 120 talleres. El 68% de ciclistas abandona su bici por semanas al pincharse. Innovación: reparación móvil geolocalizada por app, técnico en <60 min con garantía de 30 días, en modelo de suscripción mensual."
+        "placeholder": "Ejemplo: En Bogotá hay 900.000 bicicletas y solo 120 talleres. El 68% de ciclistas abandona su bici por semanas al pincharse. Innovación: reparación móvil geolocalizada por app con técnico en <60 min y modelo de suscripción."
       }
     },
     {
@@ -73,60 +50,40 @@
       "seccion_documento": "0.3 Perfil del Cliente",
       "concepto": "Un cliente bien definido combina variables demográficas, psicográficas y de comportamiento.",
       "tiempo_seg": 90,
-      "instruccion_juego": "Recoge caracteristicas REALES de segmentación. Evita estereotipos vagos.",
-      "tokens_correctos": [
-        "edad 25-35",
-        "ingresos altos",
-        "vive en Bogotá",
-        "profesional",
-        "sostenible",
-        "amante tech",
-        "compra 2x semana",
-        "usa apps",
-        "lee reseñas"
-      ],
-      "tokens_incorrectos": [
-        "todo el mundo",
-        "cualquier persona",
-        "gente que compra",
-        "público general",
-        "el que quiera"
+      "dificultad": { "enemigos": 2, "portales": 1, "bloqueados": 1, "muros_densidad": 0.12 },
+      "instruccion_juego": "Aparecen DIAMANTES BLOQUEADOS. Responde la pregunta para desbloquearlos.",
+      "tokens_correctos": ["edad 25-35", "ingresos altos", "vive en Bogotá", "profesional", "sostenible", "amante tech", "compra 2x semana", "lee reseñas"],
+      "tokens_incorrectos": ["todo el mundo", "cualquiera", "público general", "gente en general"],
+      "quiz_bloqueo": [
+        { "q": "¿Cuál es variable DEMOGRÁFICA?", "opciones": ["Estilo de vida", "Edad 25-35 años", "Valores personales"], "correcta": 1 },
+        { "q": "¿Qué es un buyer persona?", "opciones": ["Un cliente ficticio detallado", "Un empleado", "Un competidor"], "correcta": 0 }
       ],
       "pregunta_abierta": {
         "titulo": "Describe el perfil de tu cliente ideal",
-        "instruccion": "En 5 líneas (aprox. 100 palabras), describe el perfil y segmentación de tu cliente ideal (buyer persona). Incluye variables demográficas, psicográficas y de comportamiento. Justifica por qué es ESE cliente y no otro.",
+        "instruccion": "En 5 líneas describe el perfil y segmentación de tu cliente ideal (buyer persona). Incluye variables demográficas, psicográficas y de comportamiento.",
         "min_palabras": 80,
-        "placeholder": "Ejemplo: Andrés, 28-40 años, profesional en Chapinero, ingresos > 5 SMMLV, valora tiempo y sostenibilidad. Usa bicicleta 3+ veces/semana. Tecnológico, prefiere apps a llamadas. Le duele perder días de movilidad y paga más por conveniencia."
+        "placeholder": "Ejemplo: Andrés, 28-40 años, profesional en Chapinero, ingresos > 5 SMMLV, valora tiempo y sostenibilidad. Usa bicicleta 3+ veces/semana. Tecnológico, prefiere apps a llamadas."
       }
     },
     {
       "num": 4,
       "titulo": "Oportunidad de Mercado",
       "seccion_documento": "0.4 Oportunidad de Mercado",
-      "concepto": "El análisis del entorno debe identificar tendencias reales, comportamiento del consumidor y tamaño del mercado.",
+      "concepto": "El análisis del entorno debe identificar tendencias reales y comportamiento del consumidor.",
       "tiempo_seg": 90,
-      "instruccion_juego": "Recoge TENDENCIAS reales verificables. Evita rumores y modas TikTok.",
-      "tokens_correctos": [
-        "crecimiento DANE",
-        "consumo digital",
-        "cambio demográfico",
-        "regulación nueva",
-        "adopción tech",
-        "nueva clase media",
-        "hábitos post-pandemia"
-      ],
-      "tokens_incorrectos": [
-        "yo creo que sí",
-        "amigos dicen",
-        "vi en TikTok",
-        "corazonada",
-        "los influencers"
+      "dificultad": { "enemigos": 3, "portales": 2, "bloqueados": 2, "muros_densidad": 0.14 },
+      "instruccion_juego": "Mapa complejo con más enemigos. Aprovecha los portales.",
+      "tokens_correctos": ["crecimiento DANE", "consumo digital", "cambio demográfico", "regulación nueva", "adopción tech", "clase media", "hábitos post-pandemia"],
+      "tokens_incorrectos": ["yo creo que sí", "amigos dicen", "vi en TikTok", "corazonada"],
+      "quiz_bloqueo": [
+        { "q": "¿Cuál es la MEJOR fuente para datos de mercado en Colombia?", "opciones": ["TikTok", "DANE", "Corazonada"], "correcta": 1 },
+        { "q": "¿Qué NO es tendencia verificable?", "opciones": ["Aumento del comercio digital", "Vi en un post", "Cambio demográfico documentado"], "correcta": 1 }
       ],
       "pregunta_abierta": {
         "titulo": "Analiza la oportunidad de mercado",
-        "instruccion": "En 5 líneas (aprox. 100 palabras), describe la tendencia del mercado y el comportamiento del consumidor que hacen viable tu idea. Cita al menos una fuente (DANE, Confecámaras, Fedesarrollo, gremios, reportes).",
+        "instruccion": "En 5 líneas describe la tendencia del mercado y el comportamiento del consumidor. Cita al menos una fuente (DANE, Confecámaras, Fedesarrollo, gremios).",
         "min_palabras": 80,
-        "placeholder": "Ejemplo: DANE (2024) reporta uso de bicicleta creció 34% desde 2019 en Bogotá. Confecámaras registra +18% anual en movilidad sostenible. Post-pandemia el consumidor valora servicios a domicilio (Nielsen 2023: +42% en delivery de servicios)."
+        "placeholder": "Ejemplo: DANE (2024) reporta uso de bicicleta creció 34% desde 2019 en Bogotá. Confecámaras registra +18% anual en movilidad sostenible. Nielsen 2023: +42% en delivery de servicios."
       }
     },
     {
@@ -135,30 +92,19 @@
       "seccion_documento": "0.5 Portafolio",
       "concepto": "Un portafolio profesional describe cada producto/servicio con precio, especificaciones y valor agregado.",
       "tiempo_seg": 90,
-      "instruccion_juego": "Recoge elementos PROFESIONALES de portafolio. Evita descripciones vagas.",
-      "tokens_correctos": [
-        "precio $45.000",
-        "material ISO",
-        "ficha técnica",
-        "garantía 2 años",
-        "foto 360",
-        "empaque premium",
-        "beneficio claro",
-        "especificaciones",
-        "plan suscripción"
-      ],
-      "tokens_incorrectos": [
-        "es un producto",
-        "es bueno",
-        "es de calidad",
-        "sirve para todo",
-        "cualquier persona lo usa"
+      "dificultad": { "enemigos": 3, "portales": 2, "bloqueados": 2, "muros_densidad": 0.15 },
+      "instruccion_juego": "Portafolio estratégico: cada elemento profesional cuenta.",
+      "tokens_correctos": ["precio $45.000", "material ISO", "ficha técnica", "garantía 2 años", "foto 360", "empaque premium", "especificaciones", "plan suscripción"],
+      "tokens_incorrectos": ["es un producto", "es bueno", "es de calidad", "sirve para todo"],
+      "quiz_bloqueo": [
+        { "q": "¿Qué NO debe faltar en un portafolio?", "opciones": ["Precio y ficha técnica", "El logo bonito", "Solo la foto"], "correcta": 0 },
+        { "q": "¿Cuántos productos mínimo debe tener tu portafolio?", "opciones": ["1", "4", "100"], "correcta": 1 }
       ],
       "pregunta_abierta": {
         "titulo": "Presenta tu portafolio (mínimo 4 productos/servicios)",
-        "instruccion": "Describe al menos 4 productos o servicios de tu empresa. Para cada uno incluye: nombre, descripción técnica, precio, especificaciones y beneficio principal para el cliente.",
+        "instruccion": "Describe al menos 4 productos o servicios de tu empresa. Para cada uno incluye: nombre, descripción técnica, precio, especificaciones y beneficio principal.",
         "min_palabras": 200,
-        "placeholder": "Ejemplo:\n1. BikeFix Express: reparación a domicilio <60 min. Kit profesional, cámara nueva. $35.000. Garantía 30 días.\n2. Plan Cyclist: 4 revisiones/año + asistencia ilimitada. $30.000/mes con app.\n3. BikeFix Corporate: convenio empresas, tarifa preferencial.\n4. Aventura Segura: revisión pre-ciclorruta, kit repuestos. $80.000."
+        "placeholder": "Ejemplo:\n1. BikeFix Express: reparación a domicilio <60 min. $35.000. Garantía 30 días.\n2. Plan Cyclist: 4 revisiones/año + asistencia ilimitada. $30.000/mes.\n3. BikeFix Corporate: convenio empresas.\n4. Aventura Segura: revisión pre-ciclorruta $80.000."
       }
     },
     {
@@ -167,28 +113,18 @@
       "seccion_documento": "1.1 Misión",
       "concepto": "Una buena misión tiene 3 partes: verbo de acción, a quién sirve, cómo se diferencia.",
       "tiempo_seg": 90,
-      "instruccion_juego": "Recoge elementos de una MISION real. Evita verbos vagos y clichés.",
-      "tokens_correctos": [
-        "impulsamos",
-        "transformamos",
-        "a ciclistas",
-        "a empresas medianas",
-        "con app móvil",
-        "en menos de 60 min",
-        "con soporte 24/7",
-        "para movilidad sostenible",
-        "conectando directo"
-      ],
-      "tokens_incorrectos": [
-        "hacer plata",
-        "vender mucho",
-        "ser los mejores",
-        "trabajar duro",
-        "porque toca"
+      "dificultad": { "enemigos": 3, "portales": 2, "bloqueados": 3, "muros_densidad": 0.16 },
+      "instruccion_juego": "Recoge los 3 elementos clave de una misión válida.",
+      "tokens_correctos": ["impulsamos", "transformamos", "a ciclistas urbanos", "a empresas medianas", "con app móvil", "en menos de 60 min", "con soporte 24/7"],
+      "tokens_incorrectos": ["hacer plata", "vender mucho", "ser los mejores", "trabajar duro"],
+      "quiz_bloqueo": [
+        { "q": "¿Qué 3 elementos tiene una misión?", "opciones": ["Verbo + a quién + cómo se diferencia", "Precio + costo + margen", "Foto + logo + eslogan"], "correcta": 0 },
+        { "q": "¿En qué tiempo verbal se escribe la misión?", "opciones": ["Pasado", "Presente", "Futuro"], "correcta": 1 },
+        { "q": "¿Cuál es una BUENA misión?", "opciones": ["'Ser los mejores'", "'Impulsamos ciclistas urbanos con reparación en 60 min'", "'Ganar mucha plata'"], "correcta": 1 }
       ],
       "pregunta_abierta": {
         "titulo": "Redacta la misión de tu empresa",
-        "instruccion": "Crea tu declaración de misión: verbo + a quién sirves + cómo te diferencias. Debe ser una o dos oraciones perdurables, en presente. Después explica en 2-3 líneas por qué elegiste esos elementos.",
+        "instruccion": "Crea tu declaración de misión: verbo + a quién sirves + cómo te diferencias. Después justifica en 2-3 líneas.",
         "min_palabras": 60,
         "placeholder": "Ejemplo:\nMisión: 'Impulsamos la movilidad sostenible de ciclistas urbanos en Bogotá con reparación móvil en menos de 60 minutos y app de seguimiento.'\n\nJustificación: 'impulsar' porque facilitamos; público urbano específico; diferencial son los <60 min más la app."
       }
@@ -197,95 +133,67 @@
       "num": 7,
       "titulo": "Visión / Futuro preferido",
       "seccion_documento": "1.2 Visión",
-      "concepto": "La visión responde ¿qué queremos llegar a ser en 10-20 años? Aspiracional pero alcanzable, cuantificable.",
+      "concepto": "La visión responde ¿qué queremos llegar a ser en 10-20 años? Aspiracional pero alcanzable.",
       "tiempo_seg": 90,
-      "instruccion_juego": "Recoge LOGROS medibles a futuro. Evita frases vacías como 'ser los mejores'.",
-      "tokens_correctos": [
-        "líder en 2035",
-        "5 ciudades 2030",
-        "100.000 clientes",
-        "cero carbono",
-        "empresa B",
-        "20% anual",
-        "innovación reconocida"
-      ],
-      "tokens_incorrectos": [
-        "ser los mejores",
-        "hacer todo bien",
-        "ser famosos",
-        "vender mucho",
-        "trabajar duro"
+      "dificultad": { "enemigos": 4, "portales": 3, "bloqueados": 3, "muros_densidad": 0.17 },
+      "instruccion_juego": "Nivel avanzado. Enemigos y portales por todos lados.",
+      "tokens_correctos": ["líder en 2035", "5 ciudades 2030", "100.000 clientes", "cero carbono", "empresa B", "20% anual", "innovación reconocida"],
+      "tokens_incorrectos": ["ser los mejores", "hacer todo bien", "ser famosos", "vender mucho"],
+      "quiz_bloqueo": [
+        { "q": "¿Una buena visión debe ser?", "opciones": ["Vaga y bonita", "Cuantificable y aspiracional", "Copia del líder"], "correcta": 1 },
+        { "q": "¿A cuántos años proyecta una visión?", "opciones": ["1 año", "1 mes", "10-20 años"], "correcta": 2 },
+        { "q": "¿Cuál es una BUENA visión?", "opciones": ["'Ser líderes'", "'Ser la red líder en LatAm con 500 técnicos en 2035'", "'Ser famosos'"], "correcta": 1 }
       ],
       "pregunta_abierta": {
         "titulo": "Escribe tu visión a 10-20 años",
-        "instruccion": "Redacta tu visión de empresa proyectando 10 a 20 años. Incluye qué serás, cómo lo lograrás y qué impacto tendrás. Sé específico y evita frases genéricas.",
+        "instruccion": "Redacta tu visión de empresa proyectando 10 a 20 años. Incluye qué serás, cómo lo lograrás y qué impacto tendrás.",
         "min_palabras": 80,
-        "placeholder": "Ejemplo: 'Para 2035 seremos la red líder de asistencia técnica móvil para ciclistas en Latinoamérica, operando en 5 países con 500+ técnicos certificados y una plataforma que atienda 100.000 clientes. Lograremos esto por franquicia y alianzas con marcas.'"
+        "placeholder": "Ejemplo: 'Para 2035 seremos la red líder de asistencia técnica móvil para ciclistas en Latinoamérica, operando en 5 países con 500+ técnicos certificados y una plataforma que atienda 100.000 clientes.'"
       }
     },
     {
       "num": 8,
       "titulo": "Objetivos Estratégicos + Valores",
       "seccion_documento": "1.3 Objetivos + 1.4 Valores",
-      "concepto": "Los objetivos SMART son específicos, medibles, alcanzables, relevantes y temporales. Los valores dan identidad.",
-      "tiempo_seg": 90,
-      "instruccion_juego": "Recoge objetivos SMART y valores auténticos. Evita metas vagas.",
-      "tokens_correctos": [
-        "aumentar 20% en 2026",
-        "abrir 3 sucursales",
-        "10.000 usuarios",
-        "certificar ISO",
-        "integridad",
-        "innovación",
-        "sostenibilidad",
-        "transparencia"
-      ],
-      "tokens_incorrectos": [
-        "ser buenos",
-        "vender más",
-        "crecer",
-        "que nos vaya bien",
-        "ganar mucho"
+      "concepto": "Los objetivos SMART son específicos, medibles, alcanzables, relevantes y temporales.",
+      "tiempo_seg": 100,
+      "dificultad": { "enemigos": 4, "portales": 3, "bloqueados": 4, "muros_densidad": 0.18 },
+      "instruccion_juego": "Casi jefe final. Piensa antes de moverte.",
+      "tokens_correctos": ["aumentar 20% en 2026", "abrir 3 sucursales", "10.000 usuarios", "certificar ISO", "integridad", "innovación", "sostenibilidad", "transparencia"],
+      "tokens_incorrectos": ["ser buenos", "vender más", "crecer", "que nos vaya bien"],
+      "quiz_bloqueo": [
+        { "q": "¿Qué significa la S en SMART?", "opciones": ["Simple", "Específico", "Sostenible"], "correcta": 1 },
+        { "q": "¿Cuál es objetivo SMART real?", "opciones": ["'Crecer más'", "'Alcanzar 5.000 clientes para diciembre 2026'", "'Ser buenos'"], "correcta": 1 },
+        { "q": "¿Cuántos valores debe tener una empresa?", "opciones": ["1 o 2", "3 a 10", "50 o más"], "correcta": 1 }
       ],
       "pregunta_abierta": {
         "titulo": "Define tus objetivos estratégicos y valores",
-        "instruccion": "Redacta al menos 3 objetivos estratégicos SMART (medibles, con plazo). Luego lista 3-5 valores fundacionales explicando por qué cada uno es crucial para tu negocio.",
+        "instruccion": "Redacta al menos 3 objetivos estratégicos SMART. Luego lista 3-5 valores fundacionales explicando por qué cada uno es crucial.",
         "min_palabras": 120,
-        "placeholder": "Ejemplo:\nObjetivos:\n1. Alcanzar 5.000 clientes suscritos para diciembre 2026.\n2. Expandir a Medellín y Cali para semestre 2 de 2027.\n3. Reducir tiempo de respuesta a <45 min en 2026.\n\nValores:\n- Puntualidad: el tiempo del cliente es sagrado.\n- Transparencia: precios claros, sin sorpresas.\n- Sostenibilidad: reciclamos 80% de partes."
+        "placeholder": "Ejemplo:\nObjetivos:\n1. Alcanzar 5.000 clientes suscritos para diciembre 2026.\n2. Expandir a Medellín y Cali en semestre 2 de 2027.\n\nValores:\n- Puntualidad: el tiempo del cliente es sagrado.\n- Transparencia: precios claros, sin sorpresas.\n- Sostenibilidad: reciclamos 80% de partes."
       }
     },
     {
       "num": 9,
-      "titulo": "Ventaja Competitiva + Cadena de Valor + Resumen Ejecutivo",
+      "titulo": "JEFE FINAL: Ventaja + Cadena de Valor + Resumen Ejecutivo",
       "seccion_documento": "1.5 Ventaja + 1.6 Cadena de Valor + Resumen Ejecutivo",
-      "concepto": "Ventaja competitiva es lo difícil de imitar. Cadena de valor son las actividades primarias y de apoyo. Resumen ejecutivo sintetiza todo el plan.",
-      "tiempo_seg": 120,
-      "instruccion_juego": "JEFE FINAL. Recoge las VENTAJAS reales y actividades de valor. Evita lo obvio o débil.",
-      "tokens_correctos": [
-        "patente propia",
-        "red exclusiva",
-        "algoritmo único",
-        "cultura única",
-        "logística óptima",
-        "operaciones escala",
-        "data propia",
-        "postventa premium",
-        "IyD interna",
-        "capital humano"
-      ],
-      "tokens_incorrectos": [
-        "oficina bonita",
-        "buen logo",
-        "atención básica",
-        "empleados amables",
-        "trabajar duro",
-        "querer ganar"
+      "concepto": "El nivel más difícil. Ventaja competitiva difícil de imitar + cadena de valor + resumen ejecutivo.",
+      "tiempo_seg": 150,
+      "dificultad": { "enemigos": 5, "portales": 4, "bloqueados": 5, "muros_densidad": 0.20 },
+      "instruccion_juego": "JEFE FINAL. Casi imposible sin estrategia: portales, bloqueos, enemigos por todos lados.",
+      "tokens_correctos": ["patente propia", "red exclusiva", "algoritmo único", "cultura única", "logística óptima", "operaciones escala", "data propia", "postventa premium", "IyD interna", "capital humano"],
+      "tokens_incorrectos": ["oficina bonita", "buen logo", "atención básica", "empleados amables", "trabajar duro", "querer ganar"],
+      "quiz_bloqueo": [
+        { "q": "¿Cuál es una ventaja competitiva REAL?", "opciones": ["Oficina bonita", "Patente propia", "Buen logo"], "correcta": 1 },
+        { "q": "¿Cuáles son actividades PRIMARIAS de la cadena de valor?", "opciones": ["Logística, operaciones, marketing, servicio", "RRHH, tecnología, infraestructura", "Ventas de café"], "correcta": 0 },
+        { "q": "¿Un resumen ejecutivo bueno dice?", "opciones": ["Lo mínimo posible", "Sintetiza TODO el plan de negocio", "Solo el logo"], "correcta": 1 },
+        { "q": "¿Qué hace difícil de imitar una ventaja competitiva?", "opciones": ["Que sea barata", "Que sea única y protegida", "Que sea bonita"], "correcta": 1 }
       ],
       "pregunta_abierta": {
         "titulo": "Ventaja competitiva + Cadena de valor + Resumen ejecutivo",
-        "instruccion": "Redacta las 3 partes: (1) tu VENTAJA COMPETITIVA principal difícil de imitar. (2) Tu CADENA DE VALOR con actividades primarias (logística, operaciones, marketing, servicio) y de apoyo (RRHH, tecnología, infraestructura). (3) Un RESUMEN EJECUTIVO de mínimo 150 palabras que sintetice tu plan completo.",
+        "instruccion": "Redacta 3 partes: (1) VENTAJA COMPETITIVA difícil de imitar. (2) CADENA DE VALOR: actividades primarias (logística, operaciones, marketing, servicio) y de apoyo (RRHH, tecnología, infraestructura). (3) RESUMEN EJECUTIVO de mínimo 150 palabras que sintetice todo tu plan.",
         "min_palabras": 250,
-        "placeholder": "Ejemplo:\n1. Ventaja: app propia con algoritmo geolocalizado de asignación, patentada, imposible replicar en <2 años.\n\n2. Cadena de valor:\n- Primarias: logística (kit móvil), operaciones (técnicos), marketing (SEO+redes), servicio (soporte app).\n- Apoyo: RRHH (certificación), tecnología (app+algoritmo), infraestructura (bodegas satélite).\n\n3. Resumen ejecutivo: BikeFix Bogotá elimina el mayor dolor del ciclista urbano..."
+        "placeholder": "Ejemplo:\n1. Ventaja: app propia con algoritmo geolocalizado patentado, imposible replicar en <2 años.\n\n2. Cadena de valor:\n- Primarias: logística (kit móvil), operaciones (técnicos), marketing (SEO+redes), servicio (soporte app).\n- Apoyo: RRHH (certificación), tecnología (app+algoritmo), infraestructura (bodegas satélite).\n\n3. Resumen ejecutivo: BikeFix Bogotá elimina el mayor dolor del ciclista urbano..."
       }
     }
   ]
