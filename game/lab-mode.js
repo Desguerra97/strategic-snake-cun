@@ -1,7 +1,5 @@
 /* ============================================================
-   Laboratorio de Ideas — Orquestador del modo Lab
-   Cada nivel: intro → mini-juego (variado) → pregunta abierta → feedback IA
-   Cierre: generación del PDF final del plan de negocio
+   Laboratorio de Ideas — Orquestador con progresión secuencial
    ============================================================ */
 (function () {
   'use strict';
@@ -13,6 +11,7 @@
   let gameScore = 0;
   let gameDuration = 0;
   let gameStartTime = 0;
+  let lastLevelCompleted = false;
 
   const $ = sel => document.querySelector(sel);
 
@@ -25,16 +24,46 @@
       bindPdfButton();
     },
     startLevel(nivelNum) {
+      // Verificar que está desbloqueado
+      const maxUnlocked = getMaxUnlockedLevel();
+      if (nivelNum > maxUnlocked) {
+        alert('🔒 Este nivel está bloqueado.\n\nDebes completar el Nivel ' + (nivelNum - 1) + ' primero.');
+        return;
+      }
       currentLevel = levelsData.niveles.find(n => n.num === nivelNum);
       if (!currentLevel) return;
       showIntro();
-    },
-    onGameFinished(score, duration) {
-      gameScore = score;
-      gameDuration = duration;
-      showOpenQuestion();
     }
   };
+
+  // ============================================================
+  // PROGRESIÓN
+  // ============================================================
+  function getMaxUnlockedLevel() {
+    try {
+      const raw = localStorage.getItem('cun_lab_progress') || '{}';
+      const p = JSON.parse(raw);
+      const completed = Object.keys(p).map(Number).filter(n => p[n] === true);
+      if (completed.length === 0) return 1;
+      return Math.min(9, Math.max(...completed) + 1);
+    } catch { return 1; }
+  }
+
+  function markLevelCompleted(nivelNum) {
+    try {
+      const raw = localStorage.getItem('cun_lab_progress') || '{}';
+      const p = JSON.parse(raw);
+      p[nivelNum] = true;
+      localStorage.setItem('cun_lab_progress', JSON.stringify(p));
+    } catch (_) {}
+  }
+
+  function isLevelCompleted(nivelNum) {
+    try {
+      const p = JSON.parse(localStorage.getItem('cun_lab_progress') || '{}');
+      return !!p[nivelNum];
+    } catch { return false; }
+  }
 
   // ============================================================
   // 1. Selector de niveles
@@ -43,16 +72,21 @@
     const grid = $('#lab-level-grid');
     if (!grid) return;
     grid.innerHTML = '';
+    const maxUnlocked = getMaxUnlockedLevel();
+
     levelsData.niveles.forEach(n => {
       const btn = document.createElement('button');
-      btn.className = 'lab-level-card';
+      const unlocked = n.num <= maxUnlocked;
+      const completed = isLevelCompleted(n.num);
+      btn.className = 'lab-level-card' + (unlocked ? '' : ' locked') + (completed ? ' completed' : '');
+      const statusIcon = completed ? '✅ Completado' : (unlocked ? '▶ Jugar' : '🔒 Bloqueado');
       btn.innerHTML = `
         <div class="lab-level-num">Nivel ${n.num}</div>
         <div class="lab-level-title">${n.titulo}</div>
         <div class="lab-level-section">📄 ${n.seccion_documento}</div>
-        <div class="lab-level-status">▶ Jugar</div>
+        <div class="lab-level-status">${statusIcon}</div>
       `;
-      btn.addEventListener('click', () => window.LabMode.startLevel(n.num));
+      if (unlocked) btn.addEventListener('click', () => window.LabMode.startLevel(n.num));
       grid.appendChild(btn);
     });
   }
@@ -106,16 +140,24 @@
     const sel = $('#lab-level-jump');
     if (!sel) return;
     sel.innerHTML = '';
+    const maxUnlocked = getMaxUnlockedLevel();
     levelsData.niveles.forEach(n => {
       const opt = document.createElement('option');
       opt.value = n.num;
-      opt.textContent = 'Nivel ' + n.num + ' — ' + n.titulo.substring(0, 30) + (n.titulo.length > 30 ? '...' : '');
+      const lock = n.num > maxUnlocked ? ' 🔒' : '';
+      opt.textContent = 'Nivel ' + n.num + lock + ' — ' + n.titulo.substring(0, 25) + (n.titulo.length > 25 ? '...' : '');
+      opt.disabled = n.num > maxUnlocked;
       if (n.num === currentLevel.num) opt.selected = true;
       sel.appendChild(opt);
     });
     sel.onchange = () => {
       const target = parseInt(sel.value, 10);
       if (!target || target === currentLevel.num) return;
+      if (target > maxUnlocked) {
+        alert('🔒 Ese nivel está bloqueado.');
+        sel.value = currentLevel.num;
+        return;
+      }
       if (confirm('¿Cambiar al Nivel ' + target + '? Se pierde el puntaje del nivel actual.')) {
         window.LabEngines.stop();
         currentLevel = levelsData.niveles.find(n => n.num === target);
@@ -126,9 +168,11 @@
     };
   }
 
-  function onGameEnd(score, duration) {
+  function onGameEnd(score, duration, completed) {
     gameScore = score;
     gameDuration = duration || Math.floor((Date.now() - gameStartTime) / 1000);
+    lastLevelCompleted = !!completed;
+    if (completed) markLevelCompleted(currentLevel.num);
     showOpenQuestion();
   }
 
@@ -160,7 +204,7 @@
   }
 
   // ============================================================
-  // 5. Enviar respuesta + pedir feedback IA
+  // 5. Enviar respuesta + feedback IA
   // ============================================================
   async function submitAnswer() {
     const respuesta = $('#lab-q-textarea').value.trim();
@@ -168,28 +212,25 @@
     $('#screen-lab-feedback').classList.add('active');
     $('#lab-feedback-status').textContent = '⏳ Guardando tu respuesta...';
     $('#lab-feedback-content').style.display = 'none';
+    $('#btn-lab-next-level').style.display = 'none';
 
     const saveResult = await postToSheet({
       action: 'saveAnswer',
-      name: student.name,
-      email: student.email,
-      nivel: currentLevel.num,
-      seccion: currentLevel.seccion_documento,
+      name: student.name, email: student.email,
+      nivel: currentLevel.num, seccion: currentLevel.seccion_documento,
       respuesta: respuesta,
-      puntaje_juego: gameScore,
-      duracion: gameDuration
+      puntaje_juego: gameScore, duracion: gameDuration
     });
     if (!saveResult.ok) {
       $('#lab-feedback-status').innerHTML =
-        `⚠️ No se pudo guardar tu respuesta (${saveResult.error}). Captura y avisa al docente.`;
+        `⚠️ No se pudo guardar tu respuesta (${saveResult.error}). Avisa al docente.`;
       return;
     }
 
     $('#lab-feedback-status').textContent = '🤖 La IA está evaluando tu respuesta... (10-20 segundos)';
     const fbResult = await postToSheet({
       action: 'generateFeedback',
-      email: student.email,
-      nivel: currentLevel.num,
+      email: student.email, nivel: currentLevel.num,
       seccion: currentLevel.seccion_documento,
       consigna: currentLevel.pregunta_abierta.instruccion,
       requisitos: 'Mínimo ' + currentLevel.pregunta_abierta.min_palabras + ' palabras',
@@ -198,7 +239,7 @@
 
     if (!fbResult.ok) {
       $('#lab-feedback-status').innerHTML =
-        `⚠️ Respuesta guardada, pero la IA no pudo evaluar.<br>Error: ${fbResult.error}<br>El docente revisará manualmente.`;
+        `⚠️ Respuesta guardada, pero la IA no pudo evaluar.<br>Error: ${fbResult.error}`;
       renderFinalScore(null);
       return;
     }
@@ -242,9 +283,37 @@
     const contribComplet = 2;
     const totalNivel = Math.min(10, contribJuego + contribIA + contribComplet);
     $('#lab-nivel-score').textContent = totalNivel.toFixed(1) + ' / 10';
-    $('#btn-lab-continue').onclick = () => {
+
+    // Botón "Siguiente nivel" solo si completó Y hay siguiente
+    const btnNext = $('#btn-lab-next-level');
+    const btnContinue = $('#btn-lab-continue');
+    if (lastLevelCompleted && currentLevel.num < 9) {
+      btnNext.style.display = 'inline-block';
+      btnNext.textContent = '▶ Siguiente: Nivel ' + (currentLevel.num + 1);
+      btnNext.onclick = () => {
+        const nextLvl = levelsData.niveles.find(n => n.num === currentLevel.num + 1);
+        if (nextLvl) {
+          currentLevel = nextLvl;
+          showIntro();
+        }
+      };
+    } else if (lastLevelCompleted && currentLevel.num === 9) {
+      btnNext.style.display = 'inline-block';
+      btnNext.textContent = '🏆 ¡Completaste todos los niveles! Descargar PDF';
+      btnNext.onclick = () => {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        $('#screen-menu').classList.add('active');
+        renderLevelSelector();
+        setTimeout(() => $('#btn-generate-pdf').click(), 300);
+      };
+    } else {
+      btnNext.style.display = 'none';
+    }
+
+    btnContinue.onclick = () => {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       $('#screen-menu').classList.add('active');
+      renderLevelSelector();
     };
   }
 
