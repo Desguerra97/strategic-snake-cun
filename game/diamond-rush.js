@@ -423,10 +423,54 @@
   function hitByEnemy() {
     if (quizActive) return;
     combo = 0;
-    lives--;
-    score = Math.max(0, score - 20);
-    addMessage('¡Te atrapó!', player.gx, player.gy, '#ff5c5c');
+    addMessage('¡Te atrapó! Responde para escapar', player.gx, player.gy, '#ff5c5c');
     spawnParticles(player.px + CELL / 2, player.py + CELL / 2, '#ff5c5c', 20);
+    openEscapeQuiz();
+  }
+
+  function openEscapeQuiz() {
+    const quizzes = level.quiz_bloqueo || [];
+    if (quizzes.length === 0) {
+      // Sin preguntas configuradas: pérdida directa
+      applyEnemyDamage();
+      return;
+    }
+    quizActive = true;
+    const q = quizzes[Math.floor(Math.random() * quizzes.length)];
+    const overlay = document.getElementById('quiz-overlay');
+    if (!overlay) { applyEnemyDamage(); return; }
+    overlay.innerHTML = `
+      <div class="quiz-modal quiz-escape">
+        <div class="quiz-header" style="color:#ff5c5c">👹 ¡Enemigo te atrapó!</div>
+        <div class="quiz-question">Responde para ESCAPAR: ${escapeHtml(q.q)}</div>
+        <div class="quiz-options">
+          ${q.opciones.map((o, i) => `<button class="quiz-opt" data-i="${i}">${escapeHtml(o)}</button>`).join('')}
+        </div>
+        <p class="quiz-hint">💡 Correcto: escapas sin daño. Incorrecto: pierdes 1 vida y te teletransporta al inicio.</p>
+      </div>
+    `;
+    overlay.style.display = 'flex';
+    overlay.querySelectorAll('.quiz-opt').forEach(btn => {
+      btn.onclick = () => {
+        const i = parseInt(btn.dataset.i, 10);
+        overlay.style.display = 'none';
+        quizActive = false;
+        if (i === q.correcta) {
+          addMessage('¡Escapaste! +25', player.gx, player.gy, '#4dff88');
+          score += 25;
+          spawnParticles(player.px + CELL / 2, player.py + CELL / 2, '#4dff88', 15);
+          updateHUD();
+        } else {
+          applyEnemyDamage();
+        }
+      };
+    });
+  }
+
+  function applyEnemyDamage() {
+    lives--;
+    score = Math.max(0, score - 30);
+    addMessage('-1 vida', player.gx, player.gy, '#ff5c5c');
     updateHUD();
     if (lives <= 0) return finish('Te atraparon los enemigos');
     player.gx = 1; player.gy = 1;
