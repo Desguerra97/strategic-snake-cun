@@ -217,8 +217,20 @@
   }
 
   // ============================================================
-  // 5. Enviar respuesta + feedback IA
+  // 5. Enviar respuesta + feedback IA (con retry y quota)
   // ============================================================
+  function parseRetrySeconds(errMsg) {
+    if (!errMsg) return null;
+    const m = String(errMsg).match(/retry in ([\d.]+)s/i);
+    return m ? Math.ceil(parseFloat(m[1])) : null;
+  }
+
+  function isQuotaError(errMsg) {
+    if (!errMsg) return false;
+    const s = String(errMsg).toLowerCase();
+    return s.includes('quota') || s.includes('resource_exhausted') || s.includes('rate limit');
+  }
+
   async function submitAnswer() {
     const respuesta = $('#lab-q-textarea').value.trim();
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -321,22 +333,21 @@
     const totalNivel = Math.min(10, contribJuego + contribIA + contribComplet);
     $('#lab-nivel-score').textContent = totalNivel.toFixed(1) + ' / 10';
 
-    // Botón "Siguiente nivel" solo si completó Y hay siguiente
+    // Botón "Siguiente nivel" — chequea sesión Y localStorage como fallback
     const btnNext = $('#btn-lab-next-level');
     const btnContinue = $('#btn-lab-continue');
-    if (lastLevelCompleted && currentLevel.num < 9) {
+    const levelDone = lastLevelCompleted || isLevelCompleted(currentLevel.num);
+
+    if (levelDone && currentLevel.num < 9) {
       btnNext.style.display = 'inline-block';
       btnNext.textContent = '▶ Siguiente: Nivel ' + (currentLevel.num + 1);
       btnNext.onclick = () => {
         const nextLvl = levelsData.niveles.find(n => n.num === currentLevel.num + 1);
-        if (nextLvl) {
-          currentLevel = nextLvl;
-          showIntro();
-        }
+        if (nextLvl) { currentLevel = nextLvl; showIntro(); }
       };
-    } else if (lastLevelCompleted && currentLevel.num === 9) {
+    } else if (levelDone && currentLevel.num === 9) {
       btnNext.style.display = 'inline-block';
-      btnNext.textContent = '🏆 ¡Completaste todos los niveles! Descargar PDF';
+      btnNext.textContent = '🏆 ¡Completaste los 9 niveles! Descargar PDF';
       btnNext.onclick = () => {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         $('#screen-menu').classList.add('active');
@@ -344,7 +355,10 @@
         setTimeout(() => $('#btn-generate-pdf').click(), 300);
       };
     } else {
-      btnNext.style.display = 'none';
+      // No completó — muestra botón para reintentar el nivel
+      btnNext.style.display = 'inline-block';
+      btnNext.textContent = '↻ Reintentar Nivel ' + currentLevel.num;
+      btnNext.onclick = () => showIntro();
     }
 
     btnContinue.onclick = () => {
