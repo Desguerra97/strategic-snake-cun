@@ -312,13 +312,38 @@ function updateBest(p) {
 }
 
 function getRanking(limit) {
-  const sheet = getOrCreateSheet(SHEET_BEST, HEADER_BEST);
+  // Ranking calculado en vivo desde Respuestas_Laboratorio (Diamond Rush)
+  // Se toma el MEJOR puntaje por (estudiante, nivel) y se suman
+  const sheet = getOrCreateSheet(SHEET_ANSWERS, HEADER_ANSWERS);
   const data = sheet.getDataRange().getValues();
   if (data.length < 2) return [];
-  return data.slice(1)
-    .map(r => ({ email: r[0], name: r[1], score: r[2] || 0 }))
+
+  // Columnas: timestamp(0), nombre(1), email(2), nivel(3), seccion(4),
+  //           respuesta(5), palabras(6), puntaje_juego(7), duracion_seg(8)
+  const byStudent = {};
+  for (let i = 1; i < data.length; i++) {
+    const row = data[i];
+    const email = String(row[2] || '').toLowerCase();
+    const name = String(row[1] || '');
+    const nivel = String(row[3]);
+    const puntaje = Number(row[7]) || 0;
+    if (!email) continue;
+    if (!byStudent[email]) byStudent[email] = { email, name, byLevel: {} };
+    if (!byStudent[email].byLevel[nivel] || puntaje > byStudent[email].byLevel[nivel]) {
+      byStudent[email].byLevel[nivel] = puntaje;
+    }
+  }
+
+  const rankings = Object.values(byStudent).map(s => ({
+    email: s.email,
+    name: s.name,
+    score: Object.values(s.byLevel).reduce((a, v) => a + v, 0),
+    niveles: Object.keys(s.byLevel).length
+  }));
+
+  return rankings
     .filter(r => r.score > 0)
-    .sort((a, b) => b.score - a.score)
+    .sort((a, b) => b.score - a.score || b.niveles - a.niveles)
     .slice(0, limit)
     .map(r => ({ alias: 'Estratega #' + hashShort(r.email), score: r.score }));
 }
