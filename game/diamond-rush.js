@@ -31,6 +31,7 @@
   let startTime, currentTokenHover;
   let portalCooldown;
   let levelCompleted;
+  let invulnerableMs;
 
   window.DiamondRush = {
     start(lvl, cb) {
@@ -49,6 +50,7 @@
       levelCompleted = false;
       keys = {}; particles = []; messages = [];
       currentTokenHover = null; portalCooldown = 0;
+      invulnerableMs = 0;
       startTime = Date.now();
 
       generateMap();
@@ -198,6 +200,7 @@
 
   function update(dt) {
     if (portalCooldown > 0) portalCooldown -= dt;
+    if (invulnerableMs > 0) invulnerableMs -= dt;
 
     if (player.moving) {
       player.moveT += dt;
@@ -422,6 +425,7 @@
 
   function hitByEnemy() {
     if (quizActive) return;
+    if (invulnerableMs > 0) return;
     combo = 0;
     addMessage('¡Te atrapó! Responde para escapar', player.gx, player.gy, '#ff5c5c');
     spawnParticles(player.px + CELL / 2, player.py + CELL / 2, '#ff5c5c', 20);
@@ -456,8 +460,9 @@
         overlay.style.display = 'none';
         quizActive = false;
         if (i === q.correcta) {
-          addMessage('¡Escapaste! +25', player.gx, player.gy, '#4dff88');
+          addMessage('¡Escapaste! +25 (invulnerable 2s)', player.gx, player.gy, '#4dff88');
           score += 25;
+          invulnerableMs = 2000;
           spawnParticles(player.px + CELL / 2, player.py + CELL / 2, '#4dff88', 15);
           updateHUD();
         } else {
@@ -723,6 +728,19 @@
   function drawPlayer() {
     const ppx = player.px + CELL / 2;
     const ppy = player.py + CELL / 2;
+
+    // Efecto de parpadeo si invulnerable
+    if (invulnerableMs > 0) {
+      const blink = Math.floor(Date.now() / 100) % 2;
+      if (blink === 0) return; // no dibujar en frames alternos
+      // Aura de escudo
+      ctx.strokeStyle = 'rgba(77,207,255,0.7)';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(ppx, ppy, CELL / 2 + 4, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
     ctx.fillStyle = 'rgba(0,0,0,0.4)';
     ctx.beginPath();
     ctx.ellipse(ppx, ppy + CELL / 3, CELL / 3, 3, 0, 0, Math.PI * 2);
